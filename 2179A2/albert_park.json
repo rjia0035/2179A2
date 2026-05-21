@@ -1,0 +1,128 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 1", "type": "corner", "description": "Hard braking zone after pit straight" },
+      "geometry": { "type": "Point", "coordinates": [144.9695, -37.8490] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 2", "type": "corner", "description": "Right-hand kink" },
+      "geometry": { "type": "Point", "coordinates": [144.9705, -37.8493] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 3", "type": "corner", "description": "Fast sweeping right-hander" },
+      "geometry": { "type": "Point", "coordinates": [144.9715, -37.8495] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 4", "type": "corner", "description": "Left-hand curve" },
+      "geometry": { "type": "Point", "coordinates": [144.9725, -37.8492] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 5", "type": "corner", "description": "Right-hand bend" },
+      "geometry": { "type": "Point", "coordinates": [144.9730, -37.8485] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 6", "type": "corner", "description": "Slow hairpin – overtaking spot" },
+      "geometry": { "type": "Point", "coordinates": [144.9728, -37.8478] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 7", "type": "corner", "description": "Right-hand sweeper" },
+      "geometry": { "type": "Point", "coordinates": [144.9720, -37.8472] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 8", "type": "corner", "description": "Left-hand curve" },
+      "geometry": { "type": "Point", "coordinates": [144.9710, -37.8470] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 9", "type": "corner", "description": "Right-hand bend" },
+      "geometry": { "type": "Point", "coordinates": [144.9700, -37.8471] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 10", "type": "corner", "description": "Left-hand kink" },
+      "geometry": { "type": "Point", "coordinates": [144.9695, -37.8473] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 11", "type": "corner", "description": "Fast chicane leading to back straight" },
+      "geometry": { "type": "Point", "coordinates": [144.9698, -37.8475] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 12", "type": "corner", "description": "Right-hand corner" },
+      "geometry": { "type": "Point", "coordinates": [144.9690, -37.8478] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 13", "type": "corner", "description": "Left-hand bend" },
+      "geometry": { "type": "Point", "coordinates": [144.9682, -37.8479] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 14", "type": "corner", "description": "Right-hand corner" },
+      "geometry": { "type": "Point", "coordinates": [144.9675, -37.8477] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 15", "type": "corner", "description": "Left-hand sweeper" },
+      "geometry": { "type": "Point", "coordinates": [144.9670, -37.8474] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Turn 16", "type": "corner", "description": "Final corner onto pit straight" },
+      "geometry": { "type": "Point", "coordinates": [144.9678, -37.8475] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Pit Entry", "type": "facility", "description": "Entry to pit lane" },
+      "geometry": { "type": "Point", "coordinates": [144.9665, -37.8470] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Pit Exit", "type": "facility", "description": "Exit from pit lane" },
+      "geometry": { "type": "Point", "coordinates": [144.9680, -37.8488] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Start/Finish", "type": "facility", "description": "Start/finish line" },
+      "geometry": { "type": "Point", "coordinates": [144.9675, -37.8480] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Track Layout", "type": "circuit" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [144.9675, -37.8480],
+          [144.9685, -37.8485],
+          [144.9695, -37.8490],
+          [144.9705, -37.8493],
+          [144.9715, -37.8495],
+          [144.9725, -37.8492],
+          [144.9730, -37.8485],
+          [144.9728, -37.8478],
+          [144.9720, -37.8472],
+          [144.9710, -37.8470],
+          [144.9700, -37.8471],
+          [144.9695, -37.8473],
+          [144.9698, -37.8475],
+          [144.9690, -37.8478],
+          [144.9682, -37.8479],
+          [144.9675, -37.8477],
+          [144.9670, -37.8474],
+          [144.9678, -37.8475],
+          [144.9675, -37.8480]
+        ]
+      }
+    }
+  ]
+}
