@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formula 1 Data Dashboard | 75 Years of Racing</title>
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
@@ -51,69 +51,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
         .full-card { margin-bottom: 1.5rem; }
-        
-        /* custom layout for chart5: flex row for graph + legend */
-        .chart5-flex-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            align-items: flex-start;
-            justify-content: flex-start;
-            margin-bottom: 0.5rem;
-        }
-        .chart5-graph-wrapper {
-            flex: 2;
-            min-width: 240px;
-        }
-        .chart5-legend-wrapper {
-            flex: 0 0 auto;
-            background: #fefefe;
-            border-radius: 12px;
-            padding: 0.5rem 0.8rem;
-            border: 0.5px solid rgba(0,0,0,0.06);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-            transition: opacity 0.2s ease;
-        }
-        .chart5-legend-wrapper.hidden-legend {
-            display: none;
-        }
-        /* toggle button style */
-        .legend-toggle-btn {
-            background: #f0f0ec;
-            border: 0.5px solid #cbcbc4;
-            border-radius: 24px;
-            padding: 0.2rem 0.8rem;
-            font-size: 11px;
-            font-weight: 500;
-            color: #2c2c28;
-            cursor: pointer;
-            margin-left: 0.75rem;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .legend-toggle-btn:hover {
-            background: #e4e4df;
-            border-color: #a7a79e;
-        }
-        .section-header {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-bottom: 0.5rem;
-        }
-        /* responsive: on narrow screens legend goes below graph but still side-by-side friendly */
-        @media (max-width: 620px) {
-            .chart5-flex-row {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .chart5-legend-wrapper {
-                align-self: flex-start;
-            }
-        }
         
         @media (max-width: 768px) {
             body { padding: 1rem; }
@@ -171,14 +108,6 @@
             border-top: 1px solid #ddd;
             padding-top: 15px;
         }
-        /* density legend inner style */
-        .custom-density-legend {
-            background: #ffffffdd;
-            backdrop-filter: blur(2px);
-            border-radius: 16px;
-            padding: 8px 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
     </style>
 </head>
 <body>
@@ -204,21 +133,15 @@
     </div>
 </div>
 
-<!-- Chart 4 + 5: Nationality Wins & Grid vs Finish (with toggleable legend) -->
+<!-- Chart 4 + 5: Nationality Wins & Grid vs Finish -->
 <div class="grid-2">
     <div class="card">
         <p class="section-label">🌍 Race wins by driver nationality</p>
         <div class="chart-wrap" id="chart4"></div>
     </div>
-    <div class="card" id="card-chart5">
-        <div class="section-header">
-            <p class="section-label">🎯 Starting Grid vs Finishing Position (2010–2024)</p>
-            <button id="toggleLegendBtn" class="legend-toggle-btn" aria-label="Toggle density legend">
-                <span>📊</span> Hide legend
-            </button>
-        </div>
-        <!-- dynamic container for flex row (graph + legend) -->
-        <div id="chart5-container-target"></div>
+    <div class="card">
+        <p class="section-label">🎯 Starting Grid vs Finishing Position (2010–2024)</p>
+        <div id="chart5"></div>
         <p style="margin-top: 12px; font-size: 12px; color: #666; line-height: 1.4;">
             💡 Each dot = one race result. Darker/more opaque dots = more races at that position pair.
             Points below the diagonal = gained positions; above = lost positions.
@@ -407,7 +330,7 @@ fetch('jsons/races_per_season.json')
     .catch(error => console.error("Error loading chart3:", error));
 
 // ============================================
-// CHART 4: Race Wins by Nationality (Bar Chart)
+// CHART 4: Race Wins by Nationality (Bar Chart - easier to compare than doughnut)
 // ============================================
 fetch('jsons/wins_by_nationality.json')
     .then(response => response.json())
@@ -453,149 +376,90 @@ fetch('jsons/wins_by_nationality.json')
 
 // ============================================
 // CHART 5: Grid vs Finish Position (Scatter Plot with Density)
-// LEGEND NOW HAS TOGGLE BUTTON (hide/show)
 // ============================================
-let legendVisible = true;      // initial state: visible
-let legendWrapperElement = null;
-let toggleButton = null;
+fetch("jsons/grid_vs_finish.json").then(r=>r.json()).then(data=>{
+//Calculate density of points for color encoding
+    const densityMap = {};
+    data.forEach(race => {
+        const key = `${race.grid}_${race.positionOrder}`;
+        densityMap[key] = (densityMap[key] || 0) + 1;
+    });
 
-fetch("jsons/grid_vs_finish.json")
-    .then(r => r.json())
-    .then(data => {
-        // density calculation
-        const densityMap = {};
-        data.forEach(race => {
-            const key = `${race.grid}_${race.positionOrder}`;
-            densityMap[key] = (densityMap[key] || 0) + 1;
-        });
+    // Add density info to each data point
+    const enhancedData = data.map(race => {
+        const key = `${race.grid}_${race.positionOrder}`;
+        return {
+        ...race,
+        density: densityMap[key]
+        };
+    });
+  
+    const maxDensity = Math.max(...Object.values(densityMap));
+    const midDensity = Math.round(maxDensity / 2);
 
-        const enhancedData = data.map(race => {
-            const key = `${race.grid}_${race.positionOrder}`;
-            return { ...race, density: densityMap[key] };
-        });
-
-        const maxDensity = Math.max(...Object.values(densityMap));
-        const midDensity = Math.round(maxDensity / 2);
-
-        const targetContainer = document.getElementById('chart5-container-target');
-        if (!targetContainer) return;
-        
-        // Clear placeholder and build fresh flex layout
-        targetContainer.innerHTML = '';
-        const flexRow = document.createElement('div');
-        flexRow.className = 'chart5-flex-row';
-        
-        const graphWrapper = document.createElement('div');
-        graphWrapper.className = 'chart5-graph-wrapper';
-        graphWrapper.id = 'chart5-dynamic-graph';
-        
-        const legendWrapper = document.createElement('div');
-        legendWrapper.className = 'chart5-legend-wrapper';
-        legendWrapper.id = 'chart5-legend-wrapper';
-        
-        flexRow.appendChild(graphWrapper);
-        flexRow.appendChild(legendWrapper);
-        targetContainer.appendChild(flexRow);
-        
-        // Store reference for toggle
-        legendWrapperElement = legendWrapper;
-        
-        // Embed Vega-Lite into graphWrapper
-        vegaEmbed("#chart5-dynamic-graph", {
-            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-            "width": "container",
-            "height": 280,
-            "data": { "values": enhancedData },
-            "mark": { "type": "point", "filled": true, "color": "#E8002D", "size": 32 },
-            "encoding": {
-                "x": { "field": "grid", "type": "quantitative", "axis": { "title": "Grid Position (Start)" } },
-                "y": { "field": "positionOrder", "type": "quantitative", "axis": { "title": "Finishing Position" }, "scale": { "reverse": true } },
-                "opacity": {
-                    "field": "density",
-                    "type": "quantitative",
-                    "scale": { "domain": [1, maxDensity], "range": [0.18, 0.85] },
-                    "legend": null
+    vegaEmbed("#chart5", {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "width": 300, "height": 250,
+        "data": {"values": enhancedData},
+        "mark": {"type":"point","filled":true,"color": "#E8002D","size":28},
+        "encoding": {
+            "x": {"field":"grid","type":"quantitative","axis":{"title":"Grid Position (Start)"}},
+            "y": {"field":"positionOrder","type":"quantitative","axis":{"title":"Finishing Position"},
+            "scale": {"reverse": true}},
+            "opacity": {
+                "field": "density",
+                "type": "quantitative",
+                "scale": {
+                "domain": [1, maxDensity],
+                "range": [0.15, 0.8]
                 },
-                "tooltip": [
-                    { "field": "grid", "title": "Grid" },
-                    { "field": "positionOrder", "title": "Finish" },
-                    { "field": "density", "title": "Amount", "format": "d" }
-                ]
+                "legend": null
             },
-            "config": {
-                "background": "white",
-                "axis": { "labelColor": "#3d3d3a", "titleColor": "#3d3d3a" }
-            }
-        }, { actions: false }).then(() => {
-            // Build custom density legend inside legendWrapper
-            const legendDiv = document.createElement('div');
-            legendDiv.className = 'custom-density-legend';
-            legendDiv.style.cssText = `
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-                min-width: 130px;
-            `;
-            legendDiv.innerHTML = `
-                <div style="font-size: 12px; font-weight: 600; color: #1e1e1c; letter-spacing: 0.3px;">🔘 Race density</div>
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <div style="
-                        width: 14px;
-                        height: 130px;
-                        border-radius: 20px;
-                        background: linear-gradient(to bottom, 
-                            rgba(232,0,45,0.18), 
-                            rgba(232,0,45,0.52), 
-                            rgba(232,0,45,0.88));
-                        box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
-                    "></div>
-                    <div style="display: flex; flex-direction: column; justify-content: space-between; height: 130px;">
-                        <span style="font-size: 10px; font-weight: 500; color: #555;">fewer races</span>
-                        <span style="font-size: 10px; color: #888;">${midDensity}</span>
-                        <span style="font-size: 10px; font-weight: 500; color: #222;">more races →</span>
-                    </div>
-                    <div style="display: flex; flex-direction: column; justify-content: space-between; height: 130px; text-align: right;">
-                        <span style="font-size: 10px; color: #999;">1</span>
-                        <span style="font-size: 11px; font-weight: 500; color: #cf3a2e;">${maxDensity}</span>
-                    </div>
+            "tooltip": [{"field":"grid","title":"Grid"},
+            {"field":"positionOrder","title":"Finish"},
+            {"field":"density","title":"Amount","type":"quantitative","format":"d"}]
+            },
+        "config": {  
+        "background": "white",
+        "axis": {
+            "labelColor": "#3d3d3a",
+            "titleColor": "#3d3d3a"
+        }
+        }  }, {actions: false}).then(() =>{
+        const legend = document.createElement('div');
+        legend.id = 'custom-density-legend';
+        legend.style.cssText = `
+            margin-top: 12px;
+            padding: 10px 14px;
+            max-width: 228px;
+        `;
+        legend.innerHTML = `
+            <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #3d3d3a;">
+                Races
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 8px;">
+                <div style="
+                    width: 14px;
+                    height: 120px;
+                    border-radius: 6px;
+                    background: linear-gradient(to bottom,
+                        rgba(232,0,45,0.15),
+                        rgba(232,0,45,0.47),
+                        rgba(232,0,45,0.80));
+                    flex-shrink: 0;
+                "></div>
+                <div style="display: flex; flex-direction: column; justify-content: space-between; height: 120px;">
+                    <span style="font-size: 10px; color: #999;">1</span>
+                    <span style="font-size: 10px; color: #999;">${midDensity}</span>
+                    <span style="font-size: 10px; color: #999;">${maxDensity}</span>
                 </div>
-                <div style="font-size: 10px; color: #666; margin-top: 6px; border-top: 0.5px solid #ecece8; padding-top: 6px;">
-                    ⬤ darker = higher frequency
-                </div>
-            `;
-            legendWrapper.appendChild(legendDiv);
-            
-            // Now initialize toggle button state
-            toggleButton = document.getElementById('toggleLegendBtn');
-            if (toggleButton) {
-                // Set initial button text based on visibility
-                toggleButton.innerHTML = legendVisible ? '<span>📊</span> Hide legend' : '<span>📊</span> Show legend';
-                // Add click event
-                toggleButton.addEventListener('click', function() {
-                    legendVisible = !legendVisible;
-                    if (legendWrapperElement) {
-                        if (legendVisible) {
-                            legendWrapperElement.classList.remove('hidden-legend');
-                        } else {
-                            legendWrapperElement.classList.add('hidden-legend');
-                        }
-                    }
-                    // Update button text
-                    if (toggleButton) {
-                        toggleButton.innerHTML = legendVisible ? '<span>📊</span> Hide legend' : '<span>📊</span> Show legend';
-                    }
-                });
-                // Apply initial visibility state
-                if (!legendVisible) {
-                    legendWrapperElement.classList.add('hidden-legend');
-                } else {
-                    legendWrapperElement.classList.remove('hidden-legend');
-                }
-            }
-        }).catch(err => console.error("Chart5 embed error:", err));
-    })
-    .catch(error => console.error("Error loading chart5 data:", error));
+            </div>
+        `;
 
+        const chartContainer = document.querySelector('#chart5');
+        chartContainer.parentNode.insertBefore(legend, chartContainer.nextSibling);
+        });
+    });
 
 // ============================================
 // CHART 6: DNF Causes (Horizontal Bar Chart)
@@ -653,12 +517,12 @@ const spec = {
                 "subtitle": "Hover on any dot for race details",
                 "fontSize": 16,
                 "subtitleFontSize": 12,
-                "subtitleColor": "black",
-                "color": "black"
+                "subtitleColor": "white",
+                "color": "white"
             },
             "width": 1100,
             "height": 600,
-            "background": "#bcbcdc",
+            "background": "#1a1a2e",
             "projection": {
                 "type": "equalEarth"
             },
@@ -754,6 +618,22 @@ const spec = {
             console.error("Error loading map:", error);
             document.getElementById('map').innerHTML = '<p style="color: red; padding: 20px;">Error loading map: ' + error.message + '</p>';
         });
+
+fetch('data/circuits.csv')
+  .then(response => response.text())
+  .then(csvData => {
+    const circuits = parseCSV(csvData);
+    vegaEmbed("#circuit-map", {
+      "data": {"values": circuits},
+      "mark": {"type": "circle"},
+      "encoding": {
+        "longitude": {"field": "lng", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "color": {"field": "country", "type": "nominal"},
+        "tooltip": [{"field": "name"}, {"field": "location"}, {"field": "country"}]
+      }
+    });
+  });
 </script>
 </body>
 </html>

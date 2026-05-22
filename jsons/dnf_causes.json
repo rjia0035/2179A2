@@ -1,0 +1,10 @@
+[
+  {"cause": "Engine", "count": 2026},
+  {"cause": "Accident", "count": 1062},
+  {"cause": "Collision", "count": 854},
+  {"cause": "Gearbox", "count": 810},
+  {"cause": "Spun off", "count": 795},
+  {"cause": "Suspension", "count": 431},
+  {"cause": "Transmission", "count": 321},
+  {"cause": "Electrical", "count": 316}
+]
