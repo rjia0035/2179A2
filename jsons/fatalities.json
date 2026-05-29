@@ -1,0 +1,23 @@
+{
+  "decades": [
+    {"decade": "1950s", "fatalities": 15, "races": 78, "color": "#e63946"},
+    {"decade": "1960s", "fatalities": 49, "races": 100, "color": "#e63946"},
+    {"decade": "1970s", "fatalities": 52, "races": 155, "color": "#f4a261"},
+    {"decade": "1980s", "fatalities": 18, "races": 164, "color": "#f4a261"},
+    {"decade": "1990s", "fatalities": 9, "races": 182, "color": "#2a9d8f"},
+    {"decade": "2000s", "fatalities": 1, "races": 175, "color": "#2a9d8f"},
+    {"decade": "2010s", "fatalities": 0, "races": 214, "color": "#2ecc71"},
+    {"decade": "2020s", "fatalities": 0, "races": 110, "color": "#2ecc71"}
+  ],
+  "safety_milestones": [
+    {"year": 1952, "milestone": "First safety regulations", "fatalities_before": 15},
+    {"year": 1963, "milestone": "Fire-resistant overalls", "fatalities_before": 32},
+    {"year": 1972, "milestone": "Full-face helmets introduced", "fatalities_before": 49},
+    {"year": 1978, "milestone": "Headrests and better seatbelts", "fatalities_before": 54},
+    {"year": 1981, "milestone": "Carbon fibre monocoque", "fatalities_before": 56},
+    {"year": 1995, "milestone": "Raised cockpit sides", "fatalities_before": 61},
+    {"year": 2003, "milestone": "HANS device mandatory", "fatalities_before": 62},
+    {"year": 2018, "milestone": "Halo introduced", "fatalities_before": 62},
+    {"year": 2020, "milestone": "Zero fatalities since 1994", "fatalities_before": 62}
+  ]
+}
