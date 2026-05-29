@@ -838,7 +838,7 @@
         "Mexican": 484    // Mexico
     };
 
-    fetch('jsons/wins_by_nationality.json')
+    fetch('jsons/wins_by_nationalities.json')
         .then(response => response.json())
         .then(winData => {
             // Create a lookup from numeric ID to win count
@@ -1032,127 +1032,92 @@
         .catch(error => console.error("Error loading chart5 data:", error));
 
 // ============================================
-// CHART 6: DNF Causes – Treemap
+// CHART 6: DNF Causes – Waffle Chart (unique alternative)
 // ============================================
 fetch('jsons/dnf_causes.json')
     .then(response => response.json())
     .then(data => {
+        // Calculate total for percentages
         const total = data.reduce((sum, d) => sum + d.count, 0);
-
-        // Vega (not Vega-Lite) treemap spec using the treemap transform
-        const treemapSpec = {
-            "$schema": "https://vega.github.io/schema/vega/v5.json",
-            "width": 700,
-            "height": 360,
-            "padding": 0,
-            "background": "white",
+        const waffleData = [];
+        
+        // Create a 10x10 grid (100 cells)
+        const gridSize = 100;
+        let currentIdx = 0;
+        
+        data.forEach((cause, i) => {
+            const cells = Math.round((cause.count / total) * gridSize);
+            for (let j = 0; j < cells && currentIdx < gridSize; j++) {
+                waffleData.push({
+                    x: currentIdx % 10,
+                    y: Math.floor(currentIdx / 10),
+                    cause: cause.cause,
+                    count: cause.count
+                });
+                currentIdx++;
+            }
+        });
+        
+        // Fill remaining cells with empty
+        while (currentIdx < gridSize) {
+            waffleData.push({
+                x: currentIdx % 10,
+                y: Math.floor(currentIdx / 10),
+                cause: "Other",
+                count: 0
+            });
+            currentIdx++;
+        }
+        
+        const waffleSpec = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "width": "container",
+            "height": 350,
             "title": {
                 "text": "Why F1 Cars Don't Finish",
-                "subtitle": "Area proportional to number of retirements | Hover for details",
+                "subtitle": "Waffle chart: each square = ~1% of retirements",
                 "fontSize": 13,
                 "subtitleFontSize": 10,
-                "anchor": "start",
-                "dy": -4
+                "anchor": "start"
             },
-            "data": [
-                {
-                    "name": "tree",
-                    "values": [
-                        { "id": 0, "parent": null, "cause": "root", "count": 0 },
-                        ...data.map((d, i) => ({ "id": i + 1, "parent": 0, "cause": d.cause, "count": d.count }))
-                    ],
-                    "transform": [
-                        {
-                            "type": "stratify",
-                            "key": "id",
-                            "parentKey": "parent"
-                        },
-                        {
-                            "type": "treemap",
-                            "field": "count",
-                            "sort": { "field": "value", "order": "descending" },
-                            "round": true,
-                            "method": "squarify",
-                            "ratio": 1.618,
-                            "size": [{ "signal": "width" }, { "signal": "height" }],
-                            "as": ["x0", "y0", "x1", "y1", "depth", "children"]
-                        }
-                    ]
-                }
-            ],
-            "scales": [
-                {
-                    "name": "color",
+            "data": { "values": waffleData },
+            "mark": {
+                "type": "rect",
+                "stroke": "white",
+                "strokeWidth": 0.5
+            },
+            "encoding": {
+                "x": {
+                    "field": "x",
                     "type": "ordinal",
-                    "domain": data.map(d => d.cause),
-                    "range": ["#e63946", "#457b9d", "#2a9d8f", "#e9c46a", "#f4a261", "#264653", "#a8dadc", "#6d6875"]
-                }
-            ],
-            "marks": [
-                {
-                    "type": "rect",
-                    "from": { "data": "tree" },
-                    "encode": {
-                        "enter": {
-                            "x": { "field": "x0" },
-                            "y": { "field": "y0" },
-                            "x2": { "field": "x1" },
-                            "y2": { "field": "y1" },
-                            "fill": { "scale": "color", "field": "cause" },
-                            "stroke": { "value": "white" },
-                            "strokeWidth": { "value": 2 },
-                            "cornerRadius": { "value": 4 },
-                            "tooltip": {
-                                "signal": "{'Cause': datum.cause, 'Retirements': datum.count, 'Share': format(datum.count / " + total + ", '.1%')}"
-                            }
-                        },
-                        "update": {
-                            "fillOpacity": { "value": 0.92 }
-                        },
-                        "hover": {
-                            "fillOpacity": { "value": 1 },
-                            "strokeWidth": { "value": 3 }
-                        }
-                    }
+                    "axis": null
                 },
-                {
-                    "type": "text",
-                    "from": { "data": "tree" },
-                    "encode": {
-                        "enter": {
-                            "x": { "signal": "(datum.x0 + datum.x1) / 2" },
-                            "y": { "signal": "(datum.y0 + datum.y1) / 2 - 8" },
-                            "align": { "value": "center" },
-                            "baseline": { "value": "middle" },
-                            "fill": { "value": "white" },
-                            "fontWeight": { "value": "bold" },
-                            "fontSize": { "signal": "max(9, min(16, (datum.x1 - datum.x0) / 7))" },
-                            "text": { "signal": "(datum.x1 - datum.x0) > 60 ? datum.cause : ''" }
-                        }
-                    }
+                "y": {
+                    "field": "y",
+                    "type": "ordinal",
+                    "axis": null,
+                    "sort": "descending"
                 },
-                {
-                    "type": "text",
-                    "from": { "data": "tree" },
-                    "encode": {
-                        "enter": {
-                            "x": { "signal": "(datum.x0 + datum.x1) / 2" },
-                            "y": { "signal": "(datum.y0 + datum.y1) / 2 + 10" },
-                            "align": { "value": "center" },
-                            "baseline": { "value": "middle" },
-                            "fill": { "value": "white" },
-                            "fillOpacity": { "value": 0.85 },
-                            "fontSize": { "signal": "max(8, min(13, (datum.x1 - datum.x0) / 9))" },
-                            "text": { "signal": "(datum.x1 - datum.x0) > 60 ? datum.count : ''" }
-                        }
-                    }
-                }
-            ]
+                "color": {
+                    "field": "cause",
+                    "type": "nominal",
+                    "title": "Retirement Cause",
+                    "scale": { "scheme": "tableau10" },
+                    "legend": { "orient": "right", "titleFontSize": 10 }
+                },
+                "tooltip": [
+                    { "field": "cause", "title": "Cause" },
+                    { "field": "count", "title": "Retirements" }
+                ]
+            },
+            "config": {
+                "background": "white",
+                "view": { "stroke": null },
+                "axis": { "domain": false, "ticks": false }
+            }
         };
-
-        vegaEmbed("#chart6", treemapSpec, { actions: false })
-            .then(() => console.log("✅ Treemap loaded"))
-            .catch(err => console.error("Treemap error:", err));
+        
+        vegaEmbed("#chart6", waffleSpec, { actions: false });
     })
     .catch(error => console.error("Error loading chart6:", error));
     // ============================================
