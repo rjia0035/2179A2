@@ -1032,18 +1032,24 @@
         .catch(error => console.error("Error loading chart5 data:", error));
 
 // ============================================
-// CHART 6: DNF Causes – Treemap
+// CHART 6: DNF Causes – Treemap (FULLY FIXED)
 // ============================================
 fetch('jsons/dnf_causes.json')
     .then(response => response.json())
     .then(data => {
         const total = data.reduce((sum, d) => sum + d.count, 0);
-
-        // Vega (not Vega-Lite) treemap spec using the treemap transform
+        
+        // Get container width for responsiveness
+        const container = document.querySelector("#chart6")?.parentElement;
+        let containerWidth = 700; // fallback
+        if (container) {
+            containerWidth = Math.max(500, container.clientWidth - 40);
+        }
+        
         const treemapSpec = {
             "$schema": "https://vega.github.io/schema/vega/v5.json",
-            "width": 700,
-            "height": 360,
+            "width": containerWidth,
+            "height": Math.min(400, containerWidth * 0.45),
             "padding": 0,
             "background": "white",
             "title": {
@@ -1058,7 +1064,7 @@ fetch('jsons/dnf_causes.json')
                 {
                     "name": "tree",
                     "values": [
-                        { "id": 0, "parent": null, "cause": "root", "count": 0 },
+                        { "id": 0, "parent": null, "cause": "", "count": "" },
                         ...data.map((d, i) => ({ "id": i + 1, "parent": 0, "cause": d.cause, "count": d.count }))
                     ],
                     "transform": [
