@@ -353,7 +353,15 @@
             <p><strong>Data source:</strong> Official 2026 FIA Formula 1 calendar.</p>
         </div>
     </div>
-
+    <!-- 7. Fatalities: Age Distribution by Decade -->
+    <div class="card full-card">
+        <p class="section-label">💔 The Age of Tragedy</p>
+        <div class="story-text" style="margin-bottom: 0.75rem; font-size: 13px;">
+            Over 75 years, the average age of fatal accidents has shifted. The 1950s claimed young drivers; the 1970s
+            saw a wider spread; the modern era shows a tragic return of youth.
+        </div>
+        <div class="chart-wrap" id="chart7"></div>
+    </div>
     <!-- 8. Albert Park Circuit Track Map -->
     <div class="card full-card">
         <div class="section-header">
@@ -390,6 +398,16 @@
             </div>
             <div style="font-size: 11px; color: #666;" id="track-stats">📍 Loading...</div>
         </div>
+    </div>
+
+    <!-- 9. Pit Stop Radial Chart -->
+    <div class="card full-card">
+        <p class="section-label">🔄 Pit Stop Strategy: When Teams Strike</p>
+        <div class="story-text" style="margin-bottom: 0.75rem; font-size: 13px;">
+            Across 285 races, pit stops cluster in distinct lap windows — revealing the tactical rhythm of F1 strategy.
+            Each segment represents a 5-lap window; bar length shows how many pit stops occurred.
+        </div>
+        <div class="chart-wrap" id="chart9" style="display:flex; justify-content:center;"></div>
     </div>
 
     <!-- 10. Conclusion -->
@@ -579,28 +597,33 @@
                 const mouseX = (e.clientX - rect.left) * (canvas.width / rect.width);
                 const mouseY = (e.clientY - rect.top) * (canvas.height / rect.height);
 
-                let hovered = null;
+                let hoveredTurn = null;
                 for (let turn of turns) {
                     if (!turn.enabled) continue;
                     const sx = scaleX(turn.x);
                     const sy = scaleY(turn.y);
                     const dist = Math.hypot(mouseX - sx, mouseY - sy);
                     if (dist < 15) {
-                        hovered = turn.label;
+                        hoveredTurn = turn;
                         break;
                     }
                 }
 
-                if (hovered) {
+                if (hoveredTurn) {
                     tooltip.style.display = 'block';
                     tooltip.style.left = (e.clientX + 15) + 'px';
                     tooltip.style.top = (e.clientY - 25) + 'px';
-                    tooltip.innerHTML = `<strong>${hovered}</strong>`;
+                    // Show label + description (if available)
+                    const description = hoveredTurn.description || '';
+                    if (hoveredTurn.name) {
+                        tooltip.innerHTML = `<strong>${hoveredTurn.label}</strong><br><span style="font-size: 11px;">Name: ${hoveredTurn.name}</span>${description ? '<br><span style="font-size: 11px;">' + description + '</span>' : ''}`;
+                    } else {
+                        tooltip.innerHTML = `<strong>${hoveredTurn.label}</strong>${description ? '<br><span style="font-size: 11px;">' + description + '</span>' : ''}`;
+                    }
                 } else {
                     tooltip.style.display = 'none';
                 }
             }
-
             canvas.addEventListener('mousemove', handleMouseMove);
             canvas.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
         }
@@ -665,65 +688,252 @@
         .catch(error => console.error("Error loading chart1:", error));
 
     // ============================================
-    // CHART 2: Season Points - Top 5 Drivers (Line Chart)
+    // CHART 2: Sankey – Driver Points by Era
     // ============================================
     fetch('jsons/season_points.json')
         .then(response => response.json())
         .then(data => {
-            vegaEmbed("#chart2", {
-                "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-                "width": "container",
-                "height": 260,
-                "data": { "values": data },
-                "mark": { "type": "line", "point": false, "strokeWidth": 2 },
-                "encoding": {
-                    "x": {
-                        "field": "year",
-                        "type": "quantitative",
-                        "title": "Year",
-                        "axis": { "titleFontSize": 10, "labelFontSize": 9, "grid": true }
-                    },
-                    "y": {
-                        "field": "points",
-                        "type": "quantitative",
-                        "title": "Points",
-                        "axis": { "titleFontSize": 10, "labelFontSize": 9, "grid": true }
-                    },
-                    "color": {
-                        "field": "driver",
-                        "type": "nominal",
-                        "title": "Driver",
-                        "scale": {
-                            "domain": ["Hamilton", "Schumacher", "Verstappen", "Vettel", "Alonso"],
-                            "range": ["#E24B4A", "#378ADD", "#1D9E75", "#BA7517", "#7F77DD"]
-                        },
-                        "legend": {
-                            "orient": "bottom",
-                            "titleFontSize": 10,
-                            "labelFontSize": 10,
-                            "columns": 5
+            const drivers = ["Hamilton", "Schumacher", "Verstappen", "Vettel", "Alonso"];
+            const driverColors = {
+                Hamilton: "#E24B4A",
+                Schumacher: "#378ADD",
+                Verstappen: "#1D9E75",
+                Vettel: "#BA7517",
+                Alonso: "#7F77DD"
+            };
+            const eras = [
+                { key: "pre2010", label: "Pre-2010", test: y => y < 2010 },
+                { key: "2010s", label: "2010s", test: y => y >= 2010 && y < 2020 },
+                { key: "2020s", label: "2020s", test: y => y >= 2020 }
+            ];
+
+            // Build flow values: driver → era
+            const flows = [];
+            drivers.forEach(driver => {
+                eras.forEach(era => {
+                    const total = data
+                        .filter(d => d.driver === driver && era.test(d.year))
+                        .reduce((s, d) => s + d.points, 0);
+                    if (total > 0) flows.push({ driver, era: era.label, value: total });
+                });
+            });
+
+            // Compute node totals
+            const driverTotals = {};
+            const eraTotals = {};
+            flows.forEach(f => {
+                driverTotals[f.driver] = (driverTotals[f.driver] || 0) + f.value;
+                eraTotals[f.era] = (eraTotals[f.era] || 0) + f.value;
+            });
+
+            // Layout constants
+            const W = 500, H = 360;
+            const nodeW = 18, gap = 8, padY = 30, padX = 8;
+            const col1X = padX, col2X = W - padX - nodeW;
+            const availH = H - padY * 2;
+
+            // Position driver nodes (left column), sorted by total desc
+            const driverOrder = Object.entries(driverTotals)
+                .sort((a, b) => b[1] - a[1]).map(e => e[0]);
+            const driverTotalSum = Object.values(driverTotals).reduce((s, v) => s + v, 0);
+            let y = padY;
+            const driverNodePos = {};
+            driverOrder.forEach(d => {
+                const h = Math.max(12, (driverTotals[d] / driverTotalSum) * availH);
+                driverNodePos[d] = { x: col1X, y, h };
+                y += h + gap;
+            });
+
+            // Position era nodes (right column), in chronological order
+            const eraOrder = eras.map(e => e.label);
+            const eraTotalSum = Object.values(eraTotals).reduce((s, v) => s + v, 0);
+            y = padY;
+            const eraNodePos = {};
+            eraOrder.forEach(era => {
+                if (!eraTotals[era]) return;
+                const h = Math.max(12, (eraTotals[era] / eraTotalSum) * availH);
+                eraNodePos[era] = { x: col2X, y, h };
+                y += h + gap;
+            });
+
+            // Build flow band positions
+            const driverYCursor = {};
+            Object.keys(driverNodePos).forEach(d => { driverYCursor[d] = driverNodePos[d].y; });
+            const eraYCursor = {};
+            Object.keys(eraNodePos).forEach(e => { eraYCursor[e] = eraNodePos[e].y; });
+
+            const bandData = [];
+            // Iterate flows in driver-major order so colours stack cleanly on era nodes
+            driverOrder.forEach(driver => {
+                eraOrder.forEach(era => {
+                    const flow = flows.find(f => f.driver === driver && f.era === era);
+                    if (!flow) return;
+                    const dNode = driverNodePos[driver];
+                    const eNode = eraNodePos[era];
+                    const dH = (flow.value / driverTotals[driver]) * dNode.h;
+                    const eH = (flow.value / eraTotals[era]) * eNode.h;
+                    bandData.push({
+                        driver,
+                        era,
+                        value: flow.value,
+                        // left edge of band
+                        x1: col1X + nodeW,
+                        y1a: driverYCursor[driver],
+                        y1b: driverYCursor[driver] + dH,
+                        // right edge of band
+                        x2: col2X,
+                        y2a: eraYCursor[era],
+                        y2b: eraYCursor[era] + eH,
+                        color: driverColors[driver]
+                    });
+                    driverYCursor[driver] += dH;
+                    eraYCursor[era] += eH;
+                });
+            });
+
+            // Build Vega node rectangles
+            const nodeValues = [];
+            driverOrder.forEach(d => {
+                const n = driverNodePos[d];
+                nodeValues.push({
+                    id: d, col: "driver", x: n.x, y: n.y, w: nodeW, h: n.h,
+                    color: driverColors[d], label: d, value: driverTotals[d]
+                });
+            });
+            eraOrder.forEach(era => {
+                if (!eraNodePos[era]) return;
+                const n = eraNodePos[era];
+                nodeValues.push({
+                    id: era, col: "era", x: n.x, y: n.y, w: nodeW, h: n.h,
+                    color: "#888780", label: era, value: eraTotals[era]
+                });
+            });
+
+            // Column header labels
+            const headerValues = [
+                { x: col1X + nodeW / 2, text: "DRIVER" },
+                { x: col2X + nodeW / 2, text: "ERA" }
+            ];
+
+            const sankeySpec = {
+                "$schema": "https://vega.github.io/schema/vega/v5.json",
+                "width": W,
+                "height": H,
+                "padding": 5,
+                "background": "white",
+                "title": {
+                    "text": "Championship Points by Era",
+                    "subtitle": "Flow width = points scored | Left: driver total | Right: era total",
+                    "fontSize": 13,
+                    "subtitleFontSize": 10,
+                    "anchor": "start",
+                    "dy": -4
+                },
+                "data": [
+                    { "name": "bands", "values": bandData },
+                    { "name": "nodes", "values": nodeValues },
+                    { "name": "headers", "values": headerValues }
+                ],
+                "marks": [
+                    {
+                        // Bezier flow bands
+                        "type": "path",
+                        "from": { "data": "bands" },
+                        "encode": {
+                            "enter": {
+                                "path": {
+                                    "signal": "'M' + datum.x1 + ',' + datum.y1a + ' C' + ((datum.x1+datum.x2)/2) + ',' + datum.y1a + ' ' + ((datum.x1+datum.x2)/2) + ',' + datum.y2a + ' ' + datum.x2 + ',' + datum.y2a + ' L' + datum.x2 + ',' + datum.y2b + ' C' + ((datum.x1+datum.x2)/2) + ',' + datum.y2b + ' ' + ((datum.x1+datum.x2)/2) + ',' + datum.y1b + ' ' + datum.x1 + ',' + datum.y1b + ' Z'"
+                                },
+                                "fill": { "field": "color" },
+                                "fillOpacity": { "value": 0.35 },
+                                "stroke": { "field": "color" },
+                                "strokeWidth": { "value": 0.5 },
+                                "strokeOpacity": { "value": 0.6 },
+                                "tooltip": {
+                                    "signal": "{'Driver': datum.driver, 'Era': datum.era, 'Points': format(datum.value, ',.0f')}"
+                                }
+                            },
+                            "hover": { "fillOpacity": { "value": 0.65 } },
+                            "update": { "fillOpacity": { "value": 0.35 } }
                         }
                     },
-                    "strokeDash": {
-                        "field": "driver",
-                        "type": "nominal",
-                        "scale": {
-                            "domain": ["Hamilton", "Schumacher", "Verstappen", "Vettel", "Alonso"],
-                            "range": [[], [8, 4], [4, 2], [6, 3, 2, 3], [2, 2]]
-                        },
-                        "legend": null
+                    {
+                        // Node rectangles
+                        "type": "rect",
+                        "from": { "data": "nodes" },
+                        "encode": {
+                            "enter": {
+                                "x": { "field": "x" },
+                                "y": { "field": "y" },
+                                "width": { "field": "w" },
+                                "height": { "field": "h" },
+                                "fill": { "field": "color" },
+                                "cornerRadius": { "value": 3 },
+                                "tooltip": {
+                                    "signal": "{'Name': datum.label, 'Total Points': format(datum.value, ',.0f')}"
+                                }
+                            }
+                        }
                     },
-                    "tooltip": [
-                        { "field": "driver", "title": "Driver" },
-                        { "field": "year", "title": "Year", "format": "d" },
-                        { "field": "points", "title": "Points", "format": ".1f" }
-                    ]
-                },
-                "config": { "background": "white" }
-            }, { actions: false });
+                    {
+                        // Driver labels (right of left nodes)
+                        "type": "text",
+                        "from": { "data": "nodes" },
+                        "encode": {
+                            "enter": {
+                                "x": { "signal": "datum.col === 'driver' ? datum.x + datum.w + 5 : datum.x - 5" },
+                                "y": { "signal": "datum.y + datum.h / 2" },
+                                "align": { "signal": "datum.col === 'driver' ? 'left' : 'right'" },
+                                "baseline": { "value": "middle" },
+                                "text": { "signal": "datum.h >= 14 ? datum.label : ''" },
+                                "fontSize": { "value": 11 },
+                                "fontWeight": { "value": 500 },
+                                "fill": { "value": "#2c2c2a" }
+                            }
+                        }
+                    },
+                    {
+                        // Points labels below driver name (left nodes only)
+                        "type": "text",
+                        "from": { "data": "nodes" },
+                        "encode": {
+                            "enter": {
+                                "x": { "signal": "datum.col === 'driver' ? datum.x + datum.w + 5 : datum.x - 5" },
+                                "y": { "signal": "datum.y + datum.h / 2 + 13" },
+                                "align": { "signal": "datum.col === 'driver' ? 'left' : 'right'" },
+                                "baseline": { "value": "middle" },
+                                "text": { "signal": "datum.h >= 26 ? format(datum.value, ',.0f') + ' pts' : ''" },
+                                "fontSize": { "value": 10 },
+                                "fill": { "value": "#73726c" }
+                            }
+                        }
+                    },
+                    {
+                        // Column headers
+                        "type": "text",
+                        "from": { "data": "headers" },
+                        "encode": {
+                            "enter": {
+                                "x": { "field": "x" },
+                                "y": { "value": 12 },
+                                "align": { "value": "center" },
+                                "baseline": { "value": "middle" },
+                                "text": { "field": "text" },
+                                "fontSize": { "value": 10 },
+                                "fontWeight": { "value": 500 },
+                                "fill": { "value": "#73726c" },
+                                "letterSpacing": { "value": 1 }
+                            }
+                        }
+                    }
+                ]
+            };
+
+            vegaEmbed("#chart2", sankeySpec, { actions: false })
+                .then(() => console.log("✅ Sankey chart2 loaded"))
+                .catch(err => console.error("Sankey error:", err));
         })
         .catch(error => console.error("Error loading chart2:", error));
-
     // ============================================
     // CHART 3: Races Per Season (Area Chart)
     // ============================================
@@ -785,7 +995,6 @@
 
     // ============================================
     // CHART 4: Race Wins by Nationality (Choropleth Map)
-    // USING DIRECT ISO CODES – GUARANTEED TO MATCH
     // ============================================
 
     // Map your nationalities to standard ISO 3-letter codes
@@ -812,9 +1021,7 @@
         "Mexican": "MEX"
     };
 
-    // ============================================
-    // CHART 4: Race Wins by Nationality (Choropleth Map) 
-    // ============================================
+
     const nationalityToNumericId = {
         "British": 826,   // United Kingdom
         "American": 840,  // United States
@@ -908,6 +1115,7 @@
                 .catch(err => console.error("Vega error:", err));
         })
         .catch(error => console.error("Error loading data:", error));
+
     // CHART 5: Grid Position vs Finishing Position (Scatter Plot with Density)
     fetch("jsons/grid_vs_finish.json")
         .then(r => r.json())
@@ -1031,136 +1239,218 @@
         })
         .catch(error => console.error("Error loading chart5 data:", error));
 
-// ============================================
-// CHART 6: DNF Causes – Treemap (FULLY FIXED)
-// ============================================
-fetch('jsons/dnf_causes.json')
-    .then(response => response.json())
-    .then(data => {
-        const total = data.reduce((sum, d) => sum + d.count, 0);
-        
-        // Get container width for responsiveness
-        const container = document.querySelector("#chart6")?.parentElement;
-        let containerWidth = 700; // fallback
-        if (container) {
-            containerWidth = Math.max(500, container.clientWidth - 40);
-        }
-        
-        const treemapSpec = {
-            "$schema": "https://vega.github.io/schema/vega/v5.json",
-            "width": containerWidth,
-            "height": Math.min(400, containerWidth * 0.45),
-            "padding": 0,
-            "background": "white",
-            "title": {
-                "text": "Why F1 Cars Don't Finish",
-                "subtitle": "Area proportional to number of retirements | Hover for details",
-                "fontSize": 13,
-                "subtitleFontSize": 10,
-                "anchor": "start",
-                "dy": -4
-            },
-            "data": [
-                {
-                    "name": "tree",
-                    "values": [
-                        { "id": 0, "parent": null, "cause": "", "count": "" },
-                        ...data.map((d, i) => ({ "id": i + 1, "parent": 0, "cause": d.cause, "count": d.count }))
-                    ],
-                    "transform": [
-                        {
-                            "type": "stratify",
-                            "key": "id",
-                            "parentKey": "parent"
-                        },
-                        {
-                            "type": "treemap",
-                            "field": "count",
-                            "sort": { "field": "value", "order": "descending" },
-                            "round": true,
-                            "method": "squarify",
-                            "ratio": 1.618,
-                            "size": [{ "signal": "width" }, { "signal": "height" }],
-                            "as": ["x0", "y0", "x1", "y1", "depth", "children"]
+    // ============================================
+    // CHART 6: DNF Causes – Treemap (FULLY FIXED)
+    // ============================================
+    fetch('jsons/dnf_causes.json')
+        .then(response => response.json())
+        .then(data => {
+            const total = data.reduce((sum, d) => sum + d.count, 0);
+
+            // Get container width for responsiveness
+            const container = document.querySelector("#chart6")?.parentElement;
+            let containerWidth = 700; // fallback
+            if (container) {
+                containerWidth = Math.max(500, container.clientWidth - 40);
+            }
+
+            const treemapSpec = {
+                "$schema": "https://vega.github.io/schema/vega/v5.json",
+                "width": containerWidth,
+                "height": Math.min(400, containerWidth * 0.45),
+                "padding": 0,
+                "background": "white",
+                "title": {
+                    "text": "Area proportional to number of retirements | Hover for details",
+                    "fontSize": 13,
+                    "subtitleFontSize": 10,
+                    "anchor": "start",
+                    "dy": -4
+                },
+                "data": [
+                    {
+                        "name": "tree",
+                        "values": [
+                            { "id": 0, "parent": null, "cause": "", "count": "" },
+                            ...data.map((d, i) => ({ "id": i + 1, "parent": 0, "cause": d.cause, "count": d.count }))
+                        ],
+                        "transform": [
+                            {
+                                "type": "stratify",
+                                "key": "id",
+                                "parentKey": "parent"
+                            },
+                            {
+                                "type": "treemap",
+                                "field": "count",
+                                "sort": { "field": "value", "order": "descending" },
+                                "round": true,
+                                "method": "squarify",
+                                "ratio": 1.618,
+                                "size": [{ "signal": "width" }, { "signal": "height" }],
+                                "as": ["x0", "y0", "x1", "y1", "depth", "children"]
+                            }
+                        ]
+                    }
+                ],
+                "scales": [
+                    {
+                        "name": "color",
+                        "type": "ordinal",
+                        "domain": data.map(d => d.cause),
+                        "range": ["#e63946", "#457b9d", "#2a9d8f", "#e9c46a", "#f4a261", "#264653", "#a8dadc", "#6d6875"]
+                    }
+                ],
+                "marks": [
+                    {
+                        "type": "rect",
+                        "from": { "data": "tree" },
+                        "encode": {
+                            "enter": {
+                                "x": { "field": "x0" },
+                                "y": { "field": "y0" },
+                                "x2": { "field": "x1" },
+                                "y2": { "field": "y1" },
+                                "fill": { "scale": "color", "field": "cause" },
+                                "stroke": { "value": "white" },
+                                "strokeWidth": { "value": 2 },
+                                "cornerRadius": { "value": 4 },
+                                "tooltip": {
+                                    "signal": "{'Cause': datum.cause, 'Retirements': datum.count, 'Share': format(datum.count / " + total + ", '.1%')}"
+                                }
+                            },
+                            "update": {
+                                "fillOpacity": { "value": 0.92 }
+                            },
+                            "hover": {
+                                "fillOpacity": { "value": 1 },
+                                "strokeWidth": { "value": 3 }
+                            }
                         }
-                    ]
-                }
-            ],
-            "scales": [
-                {
-                    "name": "color",
-                    "type": "ordinal",
-                    "domain": data.map(d => d.cause),
-                    "range": ["#e63946", "#457b9d", "#2a9d8f", "#e9c46a", "#f4a261", "#264653", "#a8dadc", "#6d6875"]
-                }
-            ],
-            "marks": [
-                {
-                    "type": "rect",
-                    "from": { "data": "tree" },
-                    "encode": {
-                        "enter": {
-                            "x": { "field": "x0" },
-                            "y": { "field": "y0" },
-                            "x2": { "field": "x1" },
-                            "y2": { "field": "y1" },
-                            "fill": { "scale": "color", "field": "cause" },
-                            "stroke": { "value": "white" },
-                            "strokeWidth": { "value": 2 },
-                            "cornerRadius": { "value": 4 },
-                            "tooltip": {
-                                "signal": "{'Cause': datum.cause, 'Retirements': datum.count, 'Share': format(datum.count / " + total + ", '.1%')}"
+                    },
+                    {
+                        "type": "text",
+                        "from": { "data": "tree" },
+                        "encode": {
+                            "enter": {
+                                "x": { "signal": "(datum.x0 + datum.x1) / 2" },
+                                "y": { "signal": "(datum.y0 + datum.y1) / 2 - 8" },
+                                "align": { "value": "center" },
+                                "baseline": { "value": "middle" },
+                                "fill": { "value": "white" },
+                                "fontWeight": { "value": "bold" },
+                                "fontSize": { "signal": "max(9, min(16, (datum.x1 - datum.x0) / 7))" },
+                                "text": { "signal": "(datum.x1 - datum.x0) > 60 ? datum.cause : ''" }
+                            }
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "from": { "data": "tree" },
+                        "encode": {
+                            "enter": {
+                                "x": { "signal": "(datum.x0 + datum.x1) / 2" },
+                                "y": { "signal": "(datum.y0 + datum.y1) / 2 + 10" },
+                                "align": { "value": "center" },
+                                "baseline": { "value": "middle" },
+                                "fill": { "value": "white" },
+                                "fillOpacity": { "value": 0.85 },
+                                "fontSize": { "signal": "max(8, min(13, (datum.x1 - datum.x0) / 9))" },
+                                "text": { "signal": "(datum.x1 - datum.x0) > 60 ? datum.count : ''" }
+                            }
+                        }
+                    }
+                ]
+            };
+
+            vegaEmbed("#chart6", treemapSpec, { actions: false })
+                .then(() => console.log("✅ Treemap loaded"))
+                .catch(err => console.error("Treemap error:", err));
+        })
+        .catch(error => console.error("Error loading chart6:", error));
+
+    // CHART 7: Fatalities – Age Density by Decade
+    fetch('jsons/fatalities.json')
+        .then(response => response.json())
+        .then(data => {
+            // Filter any remaining undefined ages
+            const cleanData = data.filter(d => d.age != null && d.age > 0);
+
+            vegaEmbed("#chart7", {
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+                "width": "container",
+                "height": 350,
+                "title": {
+                    "text": "Age at death by decade",
+                    "subtitle": "Each curve shows the distribution of driver ages when fatal accident occurred",
+                    "fontSize": 14,
+                    "subtitleFontSize": 11,
+                    "anchor": "start"
+                },
+                "data": { "values": cleanData },
+                "transform": [
+                    { "filter": "datum.age != null" },
+                    {
+                        "density": "age",
+                        "groupby": ["decade"],
+                        "extent": [15, 65],
+                        "bandwidth": 4,
+                        "steps": 200
+                    }
+                ],
+                "facet": {
+                    "row": {
+                        "field": "decade",
+                        "type": "ordinal",
+                        "title": null,
+                        "header": { "labelAngle": 0, "labelFontSize": 12, "titleFontSize": 12 }
+                    }
+                },
+                "spec": {
+                    "mark": {
+                        "type": "area",
+                        "opacity": 0.7,
+                        "interpolate": "monotone"
+                    },
+                    "encoding": {
+                        "x": {
+                            "field": "value",
+                            "type": "quantitative",
+                            "title": "Driver age at death (years)",
+                            "axis": { "grid": false, "format": "d" },
+                            "scale": { "domain": [15, 65] }
+                        },
+                        "y": {
+                            "field": "density",
+                            "type": "quantitative",
+                            "title": "Density",
+                            "axis": { "labels": false, "title": null, "grid": false }
+                        },
+                        "color": {
+                            "field": "decade",
+                            "type": "nominal",
+                            "legend": null,
+                            "scale": {
+                                "scheme": "viridis"
                             }
                         },
-                        "update": {
-                            "fillOpacity": { "value": 0.92 }
-                        },
-                        "hover": {
-                            "fillOpacity": { "value": 1 },
-                            "strokeWidth": { "value": 3 }
-                        }
+                        "tooltip": [
+                            { "field": "decade", "title": "Decade" },
+                            { "field": "value", "title": "Age", "format": ".1f" },
+                            { "field": "density", "title": "Density", "format": ".3f" }
+                        ]
                     }
                 },
-                {
-                    "type": "text",
-                    "from": { "data": "tree" },
-                    "encode": {
-                        "enter": {
-                            "x": { "signal": "(datum.x0 + datum.x1) / 2" },
-                            "y": { "signal": "(datum.y0 + datum.y1) / 2 - 8" },
-                            "align": { "value": "center" },
-                            "baseline": { "value": "middle" },
-                            "fill": { "value": "white" },
-                            "fontWeight": { "value": "bold" },
-                            "fontSize": { "signal": "max(9, min(16, (datum.x1 - datum.x0) / 7))" },
-                            "text": { "signal": "(datum.x1 - datum.x0) > 60 ? datum.cause : ''" }
-                        }
-                    }
-                },
-                {
-                    "type": "text",
-                    "from": { "data": "tree" },
-                    "encode": {
-                        "enter": {
-                            "x": { "signal": "(datum.x0 + datum.x1) / 2" },
-                            "y": { "signal": "(datum.y0 + datum.y1) / 2 + 10" },
-                            "align": { "value": "center" },
-                            "baseline": { "value": "middle" },
-                            "fill": { "value": "white" },
-                            "fillOpacity": { "value": 0.85 },
-                            "fontSize": { "signal": "max(8, min(13, (datum.x1 - datum.x0) / 9))" },
-                            "text": { "signal": "(datum.x1 - datum.x0) > 60 ? datum.count : ''" }
-                        }
-                    }
+                "config": {
+                    "background": "white",
+                    "view": { "stroke": null },
+                    "facet": { "spacing": 8 },
+                    "axis": { "labelColor": "#3d3d3a", "titleColor": "#3d3d3a" }
                 }
-            ]
-        };
-
-        vegaEmbed("#chart6", treemapSpec, { actions: false })
-            .then(() => console.log("✅ Treemap loaded"))
-            .catch(err => console.error("Treemap error:", err));
-    })
-    .catch(error => console.error("Error loading chart6:", error));
+            }, { actions: false })
+                .catch(err => console.error("Chart7 error:", err));
+        })
+        .catch(error => console.error("Error loading fatalities.json:", error));
     // ============================================
     // F1 2026 CALENDAR MAP
     // ============================================
@@ -1273,6 +1563,147 @@ fetch('jsons/dnf_causes.json')
         console.error("Error loading map:", error);
         document.getElementById('map').innerHTML = '<p style="color: red; padding: 20px;">Error loading map: ' + error.message + '</p>';
     });
+
+    // ============================================
+    // CHART 9: Pit Stops – Radial Bar by Lap Window
+    // ============================================
+    fetch('jsons/pit_stops.json')
+        .then(r => r.json())
+        .then(data => {
+            const byLap = data.by_lap;
+
+            // Layout
+            const W = 560, H = 560, cx = W / 2, cy = H / 2;
+            const innerR = 80, outerMaxR = 230;
+            const maxStops = Math.max(...byLap.map(d => d.stops));
+            const n = byLap.length;
+            const angleSlice = (2 * Math.PI) / n;
+            const padAngle = 0.04; // radians gap between bars
+
+            // Colour scale: early laps = warm red, mid = amber, late = cool blue
+            function lapColor(i, total) {
+                const t = i / (total - 1);
+                if (t < 0.33) {
+                    // red → amber
+                    const s = t / 0.33;
+                    return `rgb(${Math.round(226 - s * 30)},${Math.round(75 + s * 90)},${Math.round(74 - s * 30)})`;
+                } else if (t < 0.66) {
+                    // amber → teal
+                    const s = (t - 0.33) / 0.33;
+                    return `rgb(${Math.round(196 - s * 150)},${Math.round(165 + s * (-45))},${Math.round(44 + s * 100)})`;
+                } else {
+                    // teal → blue
+                    const s = (t - 0.66) / 0.34;
+                    return `rgb(${Math.round(46 - s * 15)},${Math.round(120 + s * 28)},${Math.round(144 + s * 13)})`;
+                }
+            }
+
+            function polarToXY(angle, r) {
+                // 0 = top, clockwise
+                return [cx + r * Math.sin(angle), cy - r * Math.cos(angle)];
+            }
+
+            function arcPath(startAngle, endAngle, innerR, outerR) {
+                const [x1, y1] = polarToXY(startAngle, outerR);
+                const [x2, y2] = polarToXY(endAngle, outerR);
+                const [x3, y3] = polarToXY(endAngle, innerR);
+                const [x4, y4] = polarToXY(startAngle, innerR);
+                const largeArc = (endAngle - startAngle) > Math.PI ? 1 : 0;
+                return [
+                    `M ${x1} ${y1}`,
+                    `A ${outerR} ${outerR} 0 ${largeArc} 1 ${x2} ${y2}`,
+                    `L ${x3} ${y3}`,
+                    `A ${innerR} ${innerR} 0 ${largeArc} 0 ${x4} ${y4}`,
+                    'Z'
+                ].join(' ');
+            }
+
+            // Build bars + labels
+            let bars = '', labels = '', rings = '', tooltipZones = '';
+
+            // Grid rings at 25%, 50%, 75%, 100% of max
+            [0.25, 0.5, 0.75, 1.0].forEach(pct => {
+                const r = innerR + pct * (outerMaxR - innerR);
+                rings += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#e8e6e0" stroke-width="${pct === 1 ? 1.2 : 0.7}" stroke-dasharray="${pct < 1 ? '3,3' : ''}"/>`;
+                const labelVal = Math.round(pct * maxStops);
+                rings += `<text x="${cx + 4}" y="${cy - r - 3}" font-size="9" fill="#b4b2a9">${labelVal}</text>`;
+            });
+
+            byLap.forEach((d, i) => {
+                const startAngle = i * angleSlice + padAngle / 2;
+                const endAngle = (i + 1) * angleSlice - padAngle / 2;
+                const barR = innerR + (d.stops / maxStops) * (outerMaxR - innerR);
+                const color = lapColor(i, n);
+                const midAngle = (startAngle + endAngle) / 2;
+
+                // Bar
+                bars += `<path d="${arcPath(startAngle, endAngle, innerR, barR)}" 
+                    fill="${color}" fill-opacity="0.88" stroke="white" stroke-width="0.8"
+                    data-label="${d.lap_label}" data-stops="${d.stops}"/>`;
+
+                // Outer label — every other to avoid crowding
+                const labelR = outerMaxR + 18;
+                const [lx, ly] = polarToXY(midAngle, labelR);
+                const deg = (midAngle * 180 / Math.PI);
+                const anchor = Math.sin(midAngle) > 0.1 ? 'start' : Math.sin(midAngle) < -0.1 ? 'end' : 'middle';
+                labels += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" 
+                    text-anchor="${anchor}" dominant-baseline="middle"
+                    font-size="9.5" fill="#73726c" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+                    ${d.lap_label}</text>`;
+            });
+
+            // Centre label
+            const centreText = `
+                <text x="${cx}" y="${cy - 12}" text-anchor="middle" font-size="22" font-weight="700" fill="#1a1a18" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">${byLap.reduce((s,d)=>s+d.stops,0).toLocaleString()}</text>
+                <text x="${cx}" y="${cy + 8}" text-anchor="middle" font-size="11" fill="#73726c" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">total pit stops</text>
+                <text x="${cx}" y="${cy + 23}" text-anchor="middle" font-size="10" fill="#b4b2a9" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">285 races</text>`;
+
+            // Title
+            const titleText = `
+                <text x="${cx}" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="#1a1a18" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">Pit Stops by Lap Window</text>
+                <text x="${cx}" y="38" text-anchor="middle" font-size="10" fill="#73726c" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"></text>`;
+
+            // Tooltip overlay (invisible arcs that show tooltip on hover)
+            byLap.forEach((d, i) => {
+                const startAngle = i * angleSlice + padAngle / 2;
+                const endAngle = (i + 1) * angleSlice - padAngle / 2;
+                tooltipZones += `<path d="${arcPath(startAngle, endAngle, innerR, outerMaxR + 14)}" 
+                    fill="transparent" stroke="none" cursor="pointer"
+                    class="pit-arc"
+                    data-label="${d.lap_label}" data-stops="${d.stops}" data-pct="${((d.stops/byLap.reduce((s,x)=>s+x.stops,0))*100).toFixed(1)}"/>`;
+            });
+
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
+                viewBox="0 0 ${W} ${H}" style="display:block;background:white;border-radius:6px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+                ${titleText}
+                ${rings}
+                ${bars}
+                ${labels}
+                ${centreText}
+                ${tooltipZones}
+            </svg>`;
+
+            const container = document.getElementById('chart9');
+            container.innerHTML = svg;
+
+            // Tooltip
+            const tip = document.createElement('div');
+            tip.style.cssText = 'position:fixed;background:rgba(26,26,24,0.9);color:white;padding:6px 10px;border-radius:6px;font-size:12px;pointer-events:none;display:none;z-index:1000;line-height:1.5;';
+            document.body.appendChild(tip);
+
+            container.querySelectorAll('.pit-arc').forEach(el => {
+                el.addEventListener('mousemove', e => {
+                    tip.style.display = 'block';
+                    tip.style.left = (e.clientX + 12) + 'px';
+                    tip.style.top  = (e.clientY - 30) + 'px';
+                    tip.innerHTML = `<strong>${el.dataset.label}</strong><br>${el.dataset.stops} pit stops (${el.dataset.pct}%)`;
+                });
+                el.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+            });
+
+            console.log('✅ Radial pit stop chart loaded');
+        })
+        .catch(err => console.error('Chart9 error:', err));
 
 </script>
 </body>

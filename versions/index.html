@@ -353,7 +353,15 @@
             <p><strong>Data source:</strong> Official 2026 FIA Formula 1 calendar.</p>
         </div>
     </div>
-
+    <!-- 7. Fatalities: Age Distribution by Decade -->
+    <div class="card full-card">
+        <p class="section-label">💔 The Age of Tragedy</p>
+        <div class="story-text" style="margin-bottom: 0.75rem; font-size: 13px;">
+            Over 75 years, the average age of fatal accidents has shifted. The 1950s claimed young drivers; the 1970s
+            saw a wider spread; the modern era shows a tragic return of youth.
+        </div>
+        <div class="chart-wrap" id="chart7"></div>
+    </div>
     <!-- 8. Albert Park Circuit Track Map -->
     <div class="card full-card">
         <div class="section-header">
@@ -579,28 +587,33 @@
                 const mouseX = (e.clientX - rect.left) * (canvas.width / rect.width);
                 const mouseY = (e.clientY - rect.top) * (canvas.height / rect.height);
 
-                let hovered = null;
+                let hoveredTurn = null;
                 for (let turn of turns) {
                     if (!turn.enabled) continue;
                     const sx = scaleX(turn.x);
                     const sy = scaleY(turn.y);
                     const dist = Math.hypot(mouseX - sx, mouseY - sy);
                     if (dist < 15) {
-                        hovered = turn.label;
+                        hoveredTurn = turn;
                         break;
                     }
                 }
 
-                if (hovered) {
+                if (hoveredTurn) {
                     tooltip.style.display = 'block';
                     tooltip.style.left = (e.clientX + 15) + 'px';
                     tooltip.style.top = (e.clientY - 25) + 'px';
-                    tooltip.innerHTML = `<strong>${hovered}</strong>`;
+                    // Show label + description (if available)
+                    const description = hoveredTurn.description || '';
+                    if (hoveredTurn.name) {
+                        tooltip.innerHTML = `<strong>${hoveredTurn.label}</strong><br><span style="font-size: 11px;">Name: ${hoveredTurn.name}</span>${description ? '<br><span style="font-size: 11px;">' + description + '</span>' : ''}`;
+                    } else {
+                        tooltip.innerHTML = `<strong>${hoveredTurn.label}</strong>${description ? '<br><span style="font-size: 11px;">' + description + '</span>' : ''}`;
+                    }
                 } else {
                     tooltip.style.display = 'none';
                 }
             }
-
             canvas.addEventListener('mousemove', handleMouseMove);
             canvas.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
         }
@@ -665,65 +678,252 @@
         .catch(error => console.error("Error loading chart1:", error));
 
     // ============================================
-    // CHART 2: Season Points - Top 5 Drivers (Line Chart)
+    // CHART 2: Sankey – Driver Points by Era
     // ============================================
     fetch('jsons/season_points.json')
         .then(response => response.json())
         .then(data => {
-            vegaEmbed("#chart2", {
-                "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-                "width": "container",
-                "height": 260,
-                "data": { "values": data },
-                "mark": { "type": "line", "point": false, "strokeWidth": 2 },
-                "encoding": {
-                    "x": {
-                        "field": "year",
-                        "type": "quantitative",
-                        "title": "Year",
-                        "axis": { "titleFontSize": 10, "labelFontSize": 9, "grid": true }
-                    },
-                    "y": {
-                        "field": "points",
-                        "type": "quantitative",
-                        "title": "Points",
-                        "axis": { "titleFontSize": 10, "labelFontSize": 9, "grid": true }
-                    },
-                    "color": {
-                        "field": "driver",
-                        "type": "nominal",
-                        "title": "Driver",
-                        "scale": {
-                            "domain": ["Hamilton", "Schumacher", "Verstappen", "Vettel", "Alonso"],
-                            "range": ["#E24B4A", "#378ADD", "#1D9E75", "#BA7517", "#7F77DD"]
-                        },
-                        "legend": {
-                            "orient": "bottom",
-                            "titleFontSize": 10,
-                            "labelFontSize": 10,
-                            "columns": 5
+            const drivers = ["Hamilton", "Schumacher", "Verstappen", "Vettel", "Alonso"];
+            const driverColors = {
+                Hamilton: "#E24B4A",
+                Schumacher: "#378ADD",
+                Verstappen: "#1D9E75",
+                Vettel: "#BA7517",
+                Alonso: "#7F77DD"
+            };
+            const eras = [
+                { key: "pre2010", label: "Pre-2010", test: y => y < 2010 },
+                { key: "2010s", label: "2010s", test: y => y >= 2010 && y < 2020 },
+                { key: "2020s", label: "2020s", test: y => y >= 2020 }
+            ];
+
+            // Build flow values: driver → era
+            const flows = [];
+            drivers.forEach(driver => {
+                eras.forEach(era => {
+                    const total = data
+                        .filter(d => d.driver === driver && era.test(d.year))
+                        .reduce((s, d) => s + d.points, 0);
+                    if (total > 0) flows.push({ driver, era: era.label, value: total });
+                });
+            });
+
+            // Compute node totals
+            const driverTotals = {};
+            const eraTotals = {};
+            flows.forEach(f => {
+                driverTotals[f.driver] = (driverTotals[f.driver] || 0) + f.value;
+                eraTotals[f.era] = (eraTotals[f.era] || 0) + f.value;
+            });
+
+            // Layout constants
+            const W = 500, H = 360;
+            const nodeW = 18, gap = 8, padY = 30, padX = 8;
+            const col1X = padX, col2X = W - padX - nodeW;
+            const availH = H - padY * 2;
+
+            // Position driver nodes (left column), sorted by total desc
+            const driverOrder = Object.entries(driverTotals)
+                .sort((a, b) => b[1] - a[1]).map(e => e[0]);
+            const driverTotalSum = Object.values(driverTotals).reduce((s, v) => s + v, 0);
+            let y = padY;
+            const driverNodePos = {};
+            driverOrder.forEach(d => {
+                const h = Math.max(12, (driverTotals[d] / driverTotalSum) * availH);
+                driverNodePos[d] = { x: col1X, y, h };
+                y += h + gap;
+            });
+
+            // Position era nodes (right column), in chronological order
+            const eraOrder = eras.map(e => e.label);
+            const eraTotalSum = Object.values(eraTotals).reduce((s, v) => s + v, 0);
+            y = padY;
+            const eraNodePos = {};
+            eraOrder.forEach(era => {
+                if (!eraTotals[era]) return;
+                const h = Math.max(12, (eraTotals[era] / eraTotalSum) * availH);
+                eraNodePos[era] = { x: col2X, y, h };
+                y += h + gap;
+            });
+
+            // Build flow band positions
+            const driverYCursor = {};
+            Object.keys(driverNodePos).forEach(d => { driverYCursor[d] = driverNodePos[d].y; });
+            const eraYCursor = {};
+            Object.keys(eraNodePos).forEach(e => { eraYCursor[e] = eraNodePos[e].y; });
+
+            const bandData = [];
+            // Iterate flows in driver-major order so colours stack cleanly on era nodes
+            driverOrder.forEach(driver => {
+                eraOrder.forEach(era => {
+                    const flow = flows.find(f => f.driver === driver && f.era === era);
+                    if (!flow) return;
+                    const dNode = driverNodePos[driver];
+                    const eNode = eraNodePos[era];
+                    const dH = (flow.value / driverTotals[driver]) * dNode.h;
+                    const eH = (flow.value / eraTotals[era]) * eNode.h;
+                    bandData.push({
+                        driver,
+                        era,
+                        value: flow.value,
+                        // left edge of band
+                        x1: col1X + nodeW,
+                        y1a: driverYCursor[driver],
+                        y1b: driverYCursor[driver] + dH,
+                        // right edge of band
+                        x2: col2X,
+                        y2a: eraYCursor[era],
+                        y2b: eraYCursor[era] + eH,
+                        color: driverColors[driver]
+                    });
+                    driverYCursor[driver] += dH;
+                    eraYCursor[era] += eH;
+                });
+            });
+
+            // Build Vega node rectangles
+            const nodeValues = [];
+            driverOrder.forEach(d => {
+                const n = driverNodePos[d];
+                nodeValues.push({
+                    id: d, col: "driver", x: n.x, y: n.y, w: nodeW, h: n.h,
+                    color: driverColors[d], label: d, value: driverTotals[d]
+                });
+            });
+            eraOrder.forEach(era => {
+                if (!eraNodePos[era]) return;
+                const n = eraNodePos[era];
+                nodeValues.push({
+                    id: era, col: "era", x: n.x, y: n.y, w: nodeW, h: n.h,
+                    color: "#888780", label: era, value: eraTotals[era]
+                });
+            });
+
+            // Column header labels
+            const headerValues = [
+                { x: col1X + nodeW / 2, text: "DRIVER" },
+                { x: col2X + nodeW / 2, text: "ERA" }
+            ];
+
+            const sankeySpec = {
+                "$schema": "https://vega.github.io/schema/vega/v5.json",
+                "width": W,
+                "height": H,
+                "padding": 5,
+                "background": "white",
+                "title": {
+                    "text": "Championship Points by Era",
+                    "subtitle": "Flow width = points scored | Left: driver total | Right: era total",
+                    "fontSize": 13,
+                    "subtitleFontSize": 10,
+                    "anchor": "start",
+                    "dy": -4
+                },
+                "data": [
+                    { "name": "bands", "values": bandData },
+                    { "name": "nodes", "values": nodeValues },
+                    { "name": "headers", "values": headerValues }
+                ],
+                "marks": [
+                    {
+                        // Bezier flow bands
+                        "type": "path",
+                        "from": { "data": "bands" },
+                        "encode": {
+                            "enter": {
+                                "path": {
+                                    "signal": "'M' + datum.x1 + ',' + datum.y1a + ' C' + ((datum.x1+datum.x2)/2) + ',' + datum.y1a + ' ' + ((datum.x1+datum.x2)/2) + ',' + datum.y2a + ' ' + datum.x2 + ',' + datum.y2a + ' L' + datum.x2 + ',' + datum.y2b + ' C' + ((datum.x1+datum.x2)/2) + ',' + datum.y2b + ' ' + ((datum.x1+datum.x2)/2) + ',' + datum.y1b + ' ' + datum.x1 + ',' + datum.y1b + ' Z'"
+                                },
+                                "fill": { "field": "color" },
+                                "fillOpacity": { "value": 0.35 },
+                                "stroke": { "field": "color" },
+                                "strokeWidth": { "value": 0.5 },
+                                "strokeOpacity": { "value": 0.6 },
+                                "tooltip": {
+                                    "signal": "{'Driver': datum.driver, 'Era': datum.era, 'Points': format(datum.value, ',.0f')}"
+                                }
+                            },
+                            "hover": { "fillOpacity": { "value": 0.65 } },
+                            "update": { "fillOpacity": { "value": 0.35 } }
                         }
                     },
-                    "strokeDash": {
-                        "field": "driver",
-                        "type": "nominal",
-                        "scale": {
-                            "domain": ["Hamilton", "Schumacher", "Verstappen", "Vettel", "Alonso"],
-                            "range": [[], [8, 4], [4, 2], [6, 3, 2, 3], [2, 2]]
-                        },
-                        "legend": null
+                    {
+                        // Node rectangles
+                        "type": "rect",
+                        "from": { "data": "nodes" },
+                        "encode": {
+                            "enter": {
+                                "x": { "field": "x" },
+                                "y": { "field": "y" },
+                                "width": { "field": "w" },
+                                "height": { "field": "h" },
+                                "fill": { "field": "color" },
+                                "cornerRadius": { "value": 3 },
+                                "tooltip": {
+                                    "signal": "{'Name': datum.label, 'Total Points': format(datum.value, ',.0f')}"
+                                }
+                            }
+                        }
                     },
-                    "tooltip": [
-                        { "field": "driver", "title": "Driver" },
-                        { "field": "year", "title": "Year", "format": "d" },
-                        { "field": "points", "title": "Points", "format": ".1f" }
-                    ]
-                },
-                "config": { "background": "white" }
-            }, { actions: false });
+                    {
+                        // Driver labels (right of left nodes)
+                        "type": "text",
+                        "from": { "data": "nodes" },
+                        "encode": {
+                            "enter": {
+                                "x": { "signal": "datum.col === 'driver' ? datum.x + datum.w + 5 : datum.x - 5" },
+                                "y": { "signal": "datum.y + datum.h / 2" },
+                                "align": { "signal": "datum.col === 'driver' ? 'left' : 'right'" },
+                                "baseline": { "value": "middle" },
+                                "text": { "signal": "datum.h >= 14 ? datum.label : ''" },
+                                "fontSize": { "value": 11 },
+                                "fontWeight": { "value": 500 },
+                                "fill": { "value": "#2c2c2a" }
+                            }
+                        }
+                    },
+                    {
+                        // Points labels below driver name (left nodes only)
+                        "type": "text",
+                        "from": { "data": "nodes" },
+                        "encode": {
+                            "enter": {
+                                "x": { "signal": "datum.col === 'driver' ? datum.x + datum.w + 5 : datum.x - 5" },
+                                "y": { "signal": "datum.y + datum.h / 2 + 13" },
+                                "align": { "signal": "datum.col === 'driver' ? 'left' : 'right'" },
+                                "baseline": { "value": "middle" },
+                                "text": { "signal": "datum.h >= 26 ? format(datum.value, ',.0f') + ' pts' : ''" },
+                                "fontSize": { "value": 10 },
+                                "fill": { "value": "#73726c" }
+                            }
+                        }
+                    },
+                    {
+                        // Column headers
+                        "type": "text",
+                        "from": { "data": "headers" },
+                        "encode": {
+                            "enter": {
+                                "x": { "field": "x" },
+                                "y": { "value": 12 },
+                                "align": { "value": "center" },
+                                "baseline": { "value": "middle" },
+                                "text": { "field": "text" },
+                                "fontSize": { "value": 10 },
+                                "fontWeight": { "value": 500 },
+                                "fill": { "value": "#73726c" },
+                                "letterSpacing": { "value": 1 }
+                            }
+                        }
+                    }
+                ]
+            };
+
+            vegaEmbed("#chart2", sankeySpec, { actions: false })
+                .then(() => console.log("✅ Sankey chart2 loaded"))
+                .catch(err => console.error("Sankey error:", err));
         })
         .catch(error => console.error("Error loading chart2:", error));
-
     // ============================================
     // CHART 3: Races Per Season (Area Chart)
     // ============================================
@@ -785,7 +985,6 @@
 
     // ============================================
     // CHART 4: Race Wins by Nationality (Choropleth Map)
-    // USING DIRECT ISO CODES – GUARANTEED TO MATCH
     // ============================================
 
     // Map your nationalities to standard ISO 3-letter codes
@@ -812,9 +1011,7 @@
         "Mexican": "MEX"
     };
 
-    // ============================================
-    // CHART 4: Race Wins by Nationality (Choropleth Map) 
-    // ============================================
+
     const nationalityToNumericId = {
         "British": 826,   // United Kingdom
         "American": 840,  // United States
@@ -908,6 +1105,7 @@
                 .catch(err => console.error("Vega error:", err));
         })
         .catch(error => console.error("Error loading data:", error));
+
     // CHART 5: Grid Position vs Finishing Position (Scatter Plot with Density)
     fetch("jsons/grid_vs_finish.json")
         .then(r => r.json())
@@ -1031,95 +1229,285 @@
         })
         .catch(error => console.error("Error loading chart5 data:", error));
 
-// ============================================
-// CHART 6: DNF Causes – Waffle Chart (unique alternative)
-// ============================================
-fetch('jsons/dnf_causes.json')
-    .then(response => response.json())
-    .then(data => {
-        // Calculate total for percentages
-        const total = data.reduce((sum, d) => sum + d.count, 0);
-        const waffleData = [];
-        
-        // Create a 10x10 grid (100 cells)
-        const gridSize = 100;
-        let currentIdx = 0;
-        
-        data.forEach((cause, i) => {
-            const cells = Math.round((cause.count / total) * gridSize);
-            for (let j = 0; j < cells && currentIdx < gridSize; j++) {
-                waffleData.push({
-                    x: currentIdx % 10,
-                    y: Math.floor(currentIdx / 10),
-                    cause: cause.cause,
-                    count: cause.count
-                });
-                currentIdx++;
+    // ============================================
+    // CHART 6: DNF Causes – Treemap (FULLY FIXED)
+    // ============================================
+    fetch('jsons/dnf_causes.json')
+        .then(response => response.json())
+        .then(data => {
+            const total = data.reduce((sum, d) => sum + d.count, 0);
+
+            // Get container width for responsiveness
+            const container = document.querySelector("#chart6")?.parentElement;
+            let containerWidth = 700; // fallback
+            if (container) {
+                containerWidth = Math.max(500, container.clientWidth - 40);
             }
-        });
-        
-        // Fill remaining cells with empty
-        while (currentIdx < gridSize) {
-            waffleData.push({
-                x: currentIdx % 10,
-                y: Math.floor(currentIdx / 10),
-                cause: "Other",
-                count: 0
-            });
-            currentIdx++;
-        }
-        
-        const waffleSpec = {
-            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-            "width": "container",
-            "height": 350,
-            "title": {
-                "text": "Why F1 Cars Don't Finish",
-                "subtitle": "Waffle chart: each square = ~1% of retirements",
-                "fontSize": 13,
-                "subtitleFontSize": 10,
-                "anchor": "start"
-            },
-            "data": { "values": waffleData },
-            "mark": {
-                "type": "rect",
-                "stroke": "white",
-                "strokeWidth": 0.5
-            },
-            "encoding": {
-                "x": {
-                    "field": "x",
-                    "type": "ordinal",
-                    "axis": null
-                },
-                "y": {
-                    "field": "y",
-                    "type": "ordinal",
-                    "axis": null,
-                    "sort": "descending"
-                },
-                "color": {
-                    "field": "cause",
-                    "type": "nominal",
-                    "title": "Retirement Cause",
-                    "scale": { "scheme": "tableau10" },
-                    "legend": { "orient": "right", "titleFontSize": 10 }
-                },
-                "tooltip": [
-                    { "field": "cause", "title": "Cause" },
-                    { "field": "count", "title": "Retirements" }
-                ]
-            },
-            "config": {
+
+            const treemapSpec = {
+                "$schema": "https://vega.github.io/schema/vega/v5.json",
+                "width": containerWidth,
+                "height": Math.min(400, containerWidth * 0.45),
+                "padding": 0,
                 "background": "white",
-                "view": { "stroke": null },
-                "axis": { "domain": false, "ticks": false }
+                "title": {
+                    "text": "Area proportional to number of retirements | Hover for details",
+                    "fontSize": 13,
+                    "subtitleFontSize": 10,
+                    "anchor": "start",
+                    "dy": -4
+                },
+                "data": [
+                    {
+                        "name": "tree",
+                        "values": [
+                            { "id": 0, "parent": null, "cause": "", "count": "" },
+                            ...data.map((d, i) => ({ "id": i + 1, "parent": 0, "cause": d.cause, "count": d.count }))
+                        ],
+                        "transform": [
+                            {
+                                "type": "stratify",
+                                "key": "id",
+                                "parentKey": "parent"
+                            },
+                            {
+                                "type": "treemap",
+                                "field": "count",
+                                "sort": { "field": "value", "order": "descending" },
+                                "round": true,
+                                "method": "squarify",
+                                "ratio": 1.618,
+                                "size": [{ "signal": "width" }, { "signal": "height" }],
+                                "as": ["x0", "y0", "x1", "y1", "depth", "children"]
+                            }
+                        ]
+                    }
+                ],
+                "scales": [
+                    {
+                        "name": "color",
+                        "type": "ordinal",
+                        "domain": data.map(d => d.cause),
+                        "range": ["#e63946", "#457b9d", "#2a9d8f", "#e9c46a", "#f4a261", "#264653", "#a8dadc", "#6d6875"]
+                    }
+                ],
+                "marks": [
+                    {
+                        "type": "rect",
+                        "from": { "data": "tree" },
+                        "encode": {
+                            "enter": {
+                                "x": { "field": "x0" },
+                                "y": { "field": "y0" },
+                                "x2": { "field": "x1" },
+                                "y2": { "field": "y1" },
+                                "fill": { "scale": "color", "field": "cause" },
+                                "stroke": { "value": "white" },
+                                "strokeWidth": { "value": 2 },
+                                "cornerRadius": { "value": 4 },
+                                "tooltip": {
+                                    "signal": "{'Cause': datum.cause, 'Retirements': datum.count, 'Share': format(datum.count / " + total + ", '.1%')}"
+                                }
+                            },
+                            "update": {
+                                "fillOpacity": { "value": 0.92 }
+                            },
+                            "hover": {
+                                "fillOpacity": { "value": 1 },
+                                "strokeWidth": { "value": 3 }
+                            }
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "from": { "data": "tree" },
+                        "encode": {
+                            "enter": {
+                                "x": { "signal": "(datum.x0 + datum.x1) / 2" },
+                                "y": { "signal": "(datum.y0 + datum.y1) / 2 - 8" },
+                                "align": { "value": "center" },
+                                "baseline": { "value": "middle" },
+                                "fill": { "value": "white" },
+                                "fontWeight": { "value": "bold" },
+                                "fontSize": { "signal": "max(9, min(16, (datum.x1 - datum.x0) / 7))" },
+                                "text": { "signal": "(datum.x1 - datum.x0) > 60 ? datum.cause : ''" }
+                            }
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "from": { "data": "tree" },
+                        "encode": {
+                            "enter": {
+                                "x": { "signal": "(datum.x0 + datum.x1) / 2" },
+                                "y": { "signal": "(datum.y0 + datum.y1) / 2 + 10" },
+                                "align": { "value": "center" },
+                                "baseline": { "value": "middle" },
+                                "fill": { "value": "white" },
+                                "fillOpacity": { "value": 0.85 },
+                                "fontSize": { "signal": "max(8, min(13, (datum.x1 - datum.x0) / 9))" },
+                                "text": { "signal": "(datum.x1 - datum.x0) > 60 ? datum.count : ''" }
+                            }
+                        }
+                    }
+                ]
+            };
+
+            vegaEmbed("#chart6", treemapSpec, { actions: false })
+                .then(() => console.log("✅ Treemap loaded"))
+                .catch(err => console.error("Treemap error:", err));
+        })
+        .catch(error => console.error("Error loading chart6:", error));
+
+    // ============================================
+    // CHART 7: Fatalities – Ridgeline (Age by Decade)
+    // ============================================
+    fetch('jsons/fatalities.json')
+        .then(response => response.json())
+        .then(data => {
+            const cleanData = data.filter(d => d.age != null && d.age > 0);
+
+            // Decades present, chronological
+            const decades = [...new Set(cleanData.map(d => d.decade))].sort((a, b) => a - b);
+            const decadeLabels = {
+                1950: "1950s", 1960: "1960s", 1970: "1970s",
+                1980: "1980s", 1990: "1990s", 2000: "2000s", 2010: "2010s"
+            };
+
+            // KDE: Gaussian kernel, bandwidth 4, 200 steps over [15, 65]
+            const steps = 200;
+            const ageMin = 15, ageMax = 65, bw = 4;
+            const ageGrid = Array.from({ length: steps }, (_, i) => ageMin + (i / (steps - 1)) * (ageMax - ageMin));
+
+            function gaussianKDE(ages, xs, h) {
+                return xs.map(x => {
+                    const sum = ages.reduce((s, a) => s + Math.exp(-0.5 * ((x - a) / h) ** 2), 0);
+                    return sum / (ages.length * h * Math.sqrt(2 * Math.PI));
+                });
             }
-        };
-        
-        vegaEmbed("#chart6", waffleSpec, { actions: false });
-    })
-    .catch(error => console.error("Error loading chart6:", error));
+
+            // Build density rows per decade
+            const densityData = [];
+            decades.forEach(decade => {
+                const ages = cleanData.filter(d => d.decade === decade).map(d => d.age);
+                const densities = gaussianKDE(ages, ageGrid, bw);
+                ageGrid.forEach((age, i) => {
+                    densityData.push({ decade, age, density: densities[i], n: ages.length });
+                });
+            });
+
+            // Layout constants
+            const W = 620, padLeft = 62, padRight = 20, padTop = 40, padBottom = 36;
+            const plotW = W - padLeft - padRight;
+            const rowH = 68;       // vertical space per decade (overlap happens via offset)
+            const overlap = 28;    // how much curves overlap upward
+            const totalH = padTop + decades.length * (rowH - overlap) + overlap + padBottom;
+
+            // Viridis-inspired palette, one per decade (light → dark)
+            const palette = ["#fde725","#90d743","#35b779","#21908c","#31688e","#443983","#440154"];
+            const colorMap = {};
+            decades.forEach((d, i) => { colorMap[d] = palette[i % palette.length]; });
+
+            // X scale: age → pixel
+            const xScale = age => padLeft + ((age - ageMin) / (ageMax - ageMin)) * plotW;
+
+            // Per-decade: baseline Y and density scale
+            // Row 0 (oldest) at top; row N-1 at bottom — reversed so 1950s is at bottom (reads top=recent)
+            const decadeRow = {};
+            [...decades].reverse().forEach((d, i) => { decadeRow[d] = i; });
+
+            const maxDensity = Math.max(...densityData.map(d => d.density));
+            const densityScale = (rowH - overlap) * 1.8; // how tall a full-height curve is
+
+            function baselineY(decade) {
+                return padTop + decadeRow[decade] * (rowH - overlap) + (rowH - overlap);
+            }
+
+            function pointY(decade, density) {
+                return baselineY(decade) - density * densityScale / maxDensity * (rowH + overlap * 0.6);
+            }
+
+            // Build SVG path strings per decade
+            function makePath(decade) {
+                const rows = densityData.filter(d => d.decade === decade).sort((a, b) => a.age - b.age);
+                const pts = rows.map(r => [xScale(r.age), pointY(decade, r.density)]);
+                const base = baselineY(decade);
+
+                // area: go along top, return along baseline
+                const top = pts.map((p, i) => (i === 0 ? `M${p[0]},${p[1]}` : `L${p[0]},${p[1]}`)).join(' ');
+                const bottom = `L${pts[pts.length - 1][0]},${base} L${pts[0][0]},${base} Z`;
+                return { area: top + ' ' + bottom, line: top };
+            }
+
+            // Build SVG markup
+            const defs = `<defs>
+                ${decades.map(d => `
+                <linearGradient id="grad${d}" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="${colorMap[d]}" stop-opacity="0.82"/>
+                    <stop offset="100%" stop-color="${colorMap[d]}" stop-opacity="0.15"/>
+                </linearGradient>`).join('')}
+            </defs>`;
+
+            const gridLines = [20, 25, 30, 35, 40, 45, 50, 55, 60].map(age => {
+                const x = xScale(age);
+                return `<line x1="${x}" y1="${padTop}" x2="${x}" y2="${totalH - padBottom}" 
+                    stroke="#e8e6e0" stroke-width="1"/>`;
+            }).join('');
+
+            const xAxisTicks = [20, 25, 30, 35, 40, 45, 50, 55, 60].map(age => {
+                const x = xScale(age);
+                return `<text x="${x}" y="${totalH - padBottom + 16}" text-anchor="middle" 
+                    font-size="10" fill="#73726c">${age}</text>
+                <line x1="${x}" y1="${totalH - padBottom}" x2="${x}" y2="${totalH - padBottom + 4}" 
+                    stroke="#b4b2a9" stroke-width="1"/>`;
+            }).join('');
+
+            const shapes = [...decades].map(decade => {
+                const { area, line } = makePath(decade);
+                return `
+                <path d="${area}" fill="url(#grad${decade})" stroke="none"/>
+                <path d="${line}" fill="none" stroke="${colorMap[decade]}" stroke-width="1.8" stroke-linejoin="round"/>`;
+            }).join('');
+
+            const labels = decades.map(decade => {
+                const y = baselineY(decade) - 4;
+                const n = cleanData.filter(d => d.decade === decade).length;
+                return `<text x="${padLeft - 8}" y="${y}" text-anchor="end" 
+                    font-size="11" font-weight="500" fill="${colorMap[decade]}">${decadeLabels[decade]}</text>
+                <text x="${padLeft - 8}" y="${y + 11}" text-anchor="end" 
+                    font-size="9" fill="#888780">n=${n}</text>`;
+            }).join('');
+
+            const titleEl = `
+                <text x="${padLeft}" y="16" font-size="13" font-weight="600" fill="#1a1a18">Age at fatal accident, by decade</text>
+                <text x="${padLeft}" y="30" font-size="10" fill="#73726c">Distribution of driver ages | KDE bandwidth = 4 | Hover unavailable in SVG mode</text>`;
+
+            const xAxisLabel = `<text x="${padLeft + plotW / 2}" y="${totalH}" 
+                text-anchor="middle" font-size="11" fill="#73726c">Driver age at death (years)</text>`;
+
+            const baselineLines = decades.map(decade => {
+                const y = baselineY(decade);
+                return `<line x1="${padLeft}" y1="${y}" x2="${padLeft + plotW}" y2="${y}" 
+                    stroke="#d4d2cb" stroke-width="0.8"/>`;
+            }).join('');
+
+            const svgMarkup = `<svg xmlns="http://www.w3.org/2000/svg" 
+                width="100%" viewBox="0 0 ${W} ${totalH}" 
+                style="display:block;background:white;border-radius:6px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+                ${defs}
+                ${titleEl}
+                ${gridLines}
+                ${baselineLines}
+                ${shapes}
+                ${labels}
+                ${xAxisTicks}
+                ${xAxisLabel}
+            </svg>`;
+
+            const container = document.getElementById("chart7");
+            if (container) container.innerHTML = svgMarkup;
+        })
+        .catch(error => console.error("Error loading fatalities.json:", error));
     // ============================================
     // F1 2026 CALENDAR MAP
     // ============================================
