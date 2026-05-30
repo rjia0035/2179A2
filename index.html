@@ -399,7 +399,15 @@
             <div style="font-size: 11px; color: #666;" id="track-stats">📍 Loading...</div>
         </div>
     </div>
-
+    <!-- 9. Pit Stop Radial Chart -->
+    <div class="card full-card">
+        <p class="section-label">🔄 Pit Stop Strategy: When Teams Strike</p>
+        <div class="story-text" style="margin-bottom: 0.75rem; font-size: 13px;">
+            Across 285 races, pit stops cluster in distinct lap windows — revealing the tactical rhythm of F1 strategy.
+            Each segment represents a 5-lap window; bar length shows how many pit stops occurred.
+        </div>
+        <div class="chart-wrap" id="chart9" style="display:flex; justify-content:center;"></div>
+    </div>
     <!-- 10. Constructor Steamgraph -->
     <div class="card full-card">
         <p class="section-label">🏭 Constructor Dominance Over Time</p>
@@ -411,7 +419,7 @@
         <div class="chart-wrap" id="chart10"></div>
     </div>
 
-    
+
     <!-- 11. Conclusion -->
     <div class="story-text" style="text-align: center; margin-top: 1rem;">
         From Fangio to Verstappen, F1 continues to evolve – faster, smarter, and more global than ever.
@@ -424,7 +432,7 @@
 
 </html>
 <script>
-    
+
     (function () {
         let mapData = null;
         let controlPoints = [];
@@ -1382,18 +1390,18 @@
 
             const decades = [...new Set(cleanData.map(d => d.decade))].sort((a, b) => a - b);
             const decadeLabels = {
-                1950:"1950s", 1960:"1960s", 1970:"1970s",
-                1980:"1980s", 1990:"1990s", 2000:"2000s", 2010:"2010s"
+                1950: "1950s", 1960: "1960s", 1970: "1970s",
+                1980: "1980s", 1990: "1990s", 2000: "2000s", 2010: "2010s"
             };
 
             // Viridis-inspired palette, light (1950s) → dark (2010s)
-            const palette = ["#fde725","#90d743","#35b779","#21908c","#31688e","#443983","#440154"];
+            const palette = ["#fde725", "#90d743", "#35b779", "#21908c", "#31688e", "#443983", "#440154"];
             const colorMap = {};
             decades.forEach((d, i) => { colorMap[d] = palette[i % palette.length]; });
 
             // Gaussian KDE, bandwidth=4, 200 steps over age 15–65
             const steps = 200, ageMin = 15, ageMax = 65, bw = 4;
-            const ageGrid = Array.from({length: steps}, (_, i) => ageMin + (i / (steps - 1)) * (ageMax - ageMin));
+            const ageGrid = Array.from({ length: steps }, (_, i) => ageMin + (i / (steps - 1)) * (ageMax - ageMin));
 
             function gaussianKDE(ages, xs, h) {
                 return xs.map(x => {
@@ -1629,6 +1637,148 @@
         document.getElementById('map').innerHTML = '<p style="color: red; padding: 20px;">Error loading map: ' + error.message + '</p>';
     });
 
+    // ============================================
+    // CHART 9: Pit Stops – Radial Bar by Lap Window
+    // ============================================
+    fetch('jsons/pit_stops.json')
+        .then(r => r.json())
+        .then(data => {
+            const byLap = data.by_lap;
+
+            // Layout
+            const W = 560, H = 560, cx = W / 2, cy = H / 2;
+            const innerR = 80, outerMaxR = 230;
+            const maxStops = Math.max(...byLap.map(d => d.stops));
+            const n = byLap.length;
+            const angleSlice = (2 * Math.PI) / n;
+            const padAngle = 0.04; // radians gap between bars
+
+            // Colour scale: early laps = warm red, mid = amber, late = cool blue
+            function lapColor(i, total) {
+                const t = i / (total - 1);
+                if (t < 0.33) {
+                    // red → amber
+                    const s = t / 0.33;
+                    return `rgb(${Math.round(226 - s * 30)},${Math.round(75 + s * 90)},${Math.round(74 - s * 30)})`;
+                } else if (t < 0.66) {
+                    // amber → teal
+                    const s = (t - 0.33) / 0.33;
+                    return `rgb(${Math.round(196 - s * 150)},${Math.round(165 + s * (-45))},${Math.round(44 + s * 100)})`;
+                } else {
+                    // teal → blue
+                    const s = (t - 0.66) / 0.34;
+                    return `rgb(${Math.round(46 - s * 15)},${Math.round(120 + s * 28)},${Math.round(144 + s * 13)})`;
+                }
+            }
+
+            function polarToXY(angle, r) {
+                // 0 = top, clockwise
+                return [cx + r * Math.sin(angle), cy - r * Math.cos(angle)];
+            }
+
+            function arcPath(startAngle, endAngle, innerR, outerR) {
+                const [x1, y1] = polarToXY(startAngle, outerR);
+                const [x2, y2] = polarToXY(endAngle, outerR);
+                const [x3, y3] = polarToXY(endAngle, innerR);
+                const [x4, y4] = polarToXY(startAngle, innerR);
+                const largeArc = (endAngle - startAngle) > Math.PI ? 1 : 0;
+                return [
+                    `M ${x1} ${y1}`,
+                    `A ${outerR} ${outerR} 0 ${largeArc} 1 ${x2} ${y2}`,
+                    `L ${x3} ${y3}`,
+                    `A ${innerR} ${innerR} 0 ${largeArc} 0 ${x4} ${y4}`,
+                    'Z'
+                ].join(' ');
+            }
+
+            // Build bars + labels
+            let bars = '', labels = '', rings = '', tooltipZones = '';
+
+            // Grid rings at 25%, 50%, 75%, 100% of max
+            [0.25, 0.5, 0.75, 1.0].forEach(pct => {
+                const r = innerR + pct * (outerMaxR - innerR);
+                rings += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#e8e6e0" stroke-width="${pct === 1 ? 1.2 : 0.7}" stroke-dasharray="${pct < 1 ? '3,3' : ''}"/>`;
+                const labelVal = Math.round(pct * maxStops);
+                rings += `<text x="${cx + 4}" y="${cy - r - 3}" font-size="9" fill="#b4b2a9">${labelVal}</text>`;
+            });
+
+            byLap.forEach((d, i) => {
+                const startAngle = i * angleSlice + padAngle / 2;
+                const endAngle = (i + 1) * angleSlice - padAngle / 2;
+                const barR = innerR + (d.stops / maxStops) * (outerMaxR - innerR);
+                const color = lapColor(i, n);
+                const midAngle = (startAngle + endAngle) / 2;
+
+                // Bar
+                bars += `<path d="${arcPath(startAngle, endAngle, innerR, barR)}" 
+                    fill="${color}" fill-opacity="0.88" stroke="white" stroke-width="0.8"
+                    data-label="${d.lap_label}" data-stops="${d.stops}"/>`;
+
+                // Outer label — every other to avoid crowding
+                const labelR = outerMaxR + 18;
+                const [lx, ly] = polarToXY(midAngle, labelR);
+                const deg = (midAngle * 180 / Math.PI);
+                const anchor = Math.sin(midAngle) > 0.1 ? 'start' : Math.sin(midAngle) < -0.1 ? 'end' : 'middle';
+                labels += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" 
+                    text-anchor="${anchor}" dominant-baseline="middle"
+                    font-size="9.5" fill="#73726c" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+                    ${d.lap_label}</text>`;
+            });
+
+            // Centre label
+            const centreText = `
+                <text x="${cx}" y="${cy - 12}" text-anchor="middle" font-size="22" font-weight="700" fill="#1a1a18" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">${byLap.reduce((s, d) => s + d.stops, 0).toLocaleString()}</text>
+                <text x="${cx}" y="${cy + 8}" text-anchor="middle" font-size="11" fill="#73726c" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">total pit stops</text>
+                <text x="${cx}" y="${cy + 23}" text-anchor="middle" font-size="10" fill="#b4b2a9" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">285 races</text>`;
+
+            // Title
+            const titleText = `
+                <text x="${cx}" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="#1a1a18" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">Pit Stops by Lap Window</text>
+                <text x="${cx}" y="38" text-anchor="middle" font-size="10" fill="#73726c" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"></text>`;
+
+            // Tooltip overlay (invisible arcs that show tooltip on hover)
+            byLap.forEach((d, i) => {
+                const startAngle = i * angleSlice + padAngle / 2;
+                const endAngle = (i + 1) * angleSlice - padAngle / 2;
+                tooltipZones += `<path d="${arcPath(startAngle, endAngle, innerR, outerMaxR + 14)}" 
+                    fill="transparent" stroke="none" cursor="pointer"
+                    class="pit-arc"
+                    data-label="${d.lap_label}" data-stops="${d.stops}" data-pct="${((d.stops / byLap.reduce((s, x) => s + x.stops, 0)) * 100).toFixed(1)}"/>`;
+            });
+
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
+                viewBox="0 0 ${W} ${H}" style="display:block;background:white;border-radius:6px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+                ${titleText}
+                ${rings}
+                ${bars}
+                ${labels}
+                ${centreText}
+                ${tooltipZones}
+            </svg>`;
+
+            const container = document.getElementById('chart9');
+            container.innerHTML = svg;
+
+            // Tooltip
+            const tip = document.createElement('div');
+            tip.style.cssText = 'position:fixed;background:rgba(26,26,24,0.9);color:white;padding:6px 10px;border-radius:6px;font-size:12px;pointer-events:none;display:none;z-index:1000;line-height:1.5;';
+            document.body.appendChild(tip);
+
+            container.querySelectorAll('.pit-arc').forEach(el => {
+                el.addEventListener('mousemove', e => {
+                    tip.style.display = 'block';
+                    tip.style.left = (e.clientX + 12) + 'px';
+                    tip.style.top = (e.clientY - 30) + 'px';
+                    tip.innerHTML = `<strong>${el.dataset.label}</strong><br>${el.dataset.stops} pit stops (${el.dataset.pct}%)`;
+                });
+                el.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+            });
+
+            console.log('✅ Radial pit stop chart loaded');
+        })
+        .catch(err => console.error('Chart9 error:', err));
+
+
 
     // ============================================
     // CHART 10: Constructor Steamgraph
@@ -1637,23 +1787,23 @@
         .then(r => r.json())
         .then(rawData => {
 
-            const constructors = ['Ferrari','Mercedes','Red Bull','McLaren','Williams',
-                                  'Renault','Benetton','Sauber','Force India','Aston Martin'];
+            const constructors = ['Ferrari', 'Mercedes', 'Red Bull', 'McLaren', 'Williams',
+                'Renault', 'Benetton', 'Sauber', 'Force India', 'Aston Martin'];
 
             const colors = {
-                'Ferrari':      '#E8002D',
-                'Mercedes':     '#00D2BE',
-                'Red Bull':     '#3671C6',
-                'McLaren':      '#FF8000',
-                'Williams':     '#005AFF',
-                'Renault':      '#FFF500',
-                'Benetton':     '#00A651',
-                'Sauber':       '#9B9B9B',
-                'Force India':  '#F596C8',
+                'Ferrari': '#E8002D',
+                'Mercedes': '#00D2BE',
+                'Red Bull': '#3671C6',
+                'McLaren': '#FF8000',
+                'Williams': '#005AFF',
+                'Renault': '#FFF500',
+                'Benetton': '#00A651',
+                'Sauber': '#9B9B9B',
+                'Force India': '#F596C8',
                 'Aston Martin': '#358C75',
             };
 
-            const allYears = [...new Set(rawData.map(d => d.year))].sort((a,b) => a-b);
+            const allYears = [...new Set(rawData.map(d => d.year))].sort((a, b) => a - b);
 
             const lookup = {};
             allYears.forEach(y => { lookup[y] = {}; });
@@ -1668,9 +1818,9 @@
             const nY = allYears.length;
 
             // Order constructors: interleave biggest→outside, smallest→inside for visual clarity
-            const totals = constructors.map((c,k) => ({
-                k, total: allYears.reduce((s,_,yi) => s + matrix[yi][k], 0)
-            })).sort((a,b) => b.total - a.total);
+            const totals = constructors.map((c, k) => ({
+                k, total: allYears.reduce((s, _, yi) => s + matrix[yi][k], 0)
+            })).sort((a, b) => b.total - a.total);
 
             const orderedIdx = [];
             let lo = 0, hi = totals.length - 1, toggle = true;
@@ -1680,8 +1830,8 @@
             }
 
             // Stack layers
-            const stackLo = Array.from({length: n}, () => new Float64Array(nY));
-            const stackHi = Array.from({length: n}, () => new Float64Array(nY));
+            const stackLo = Array.from({ length: n }, () => new Float64Array(nY));
+            const stackHi = Array.from({ length: n }, () => new Float64Array(nY));
             for (let yi = 0; yi < nY; yi++) {
                 let cursor = baselines[yi];
                 orderedIdx.forEach((k, oi) => {
@@ -1697,7 +1847,7 @@
             const plotW = W - padL - padR;
             const plotH = H - padT - padB;
 
-            const xMin = allYears[0], xMax = allYears[nY-1];
+            const xMin = allYears[0], xMax = allYears[nY - 1];
             const xScale = y => padL + ((y - xMin) / (xMax - xMin)) * plotW;
 
             let yMin = Infinity, yMax = -Infinity;
@@ -1714,12 +1864,12 @@
             function spline(xs, ys) {
                 let d = `M${xs[0].toFixed(1)},${ys[0].toFixed(1)}`;
                 for (let i = 0; i < xs.length - 1; i++) {
-                    const x0=i>0?xs[i-1]:xs[i], y0=i>0?ys[i-1]:ys[i];
-                    const x1=xs[i], y1=ys[i], x2=xs[i+1], y2=ys[i+1];
-                    const x3=i<xs.length-2?xs[i+2]:xs[i+1], y3=i<xs.length-2?ys[i+2]:ys[i+1];
-                    const cp1x=x1+(x2-x0)/6, cp1y=y1+(y2-y0)/6;
-                    const cp2x=x2-(x3-x1)/6, cp2y=y2-(y3-y1)/6;
-                    d+=` C${cp1x.toFixed(1)},${cp1y.toFixed(1)} ${cp2x.toFixed(1)},${cp2y.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`;
+                    const x0 = i > 0 ? xs[i - 1] : xs[i], y0 = i > 0 ? ys[i - 1] : ys[i];
+                    const x1 = xs[i], y1 = ys[i], x2 = xs[i + 1], y2 = ys[i + 1];
+                    const x3 = i < xs.length - 2 ? xs[i + 2] : xs[i + 1], y3 = i < xs.length - 2 ? ys[i + 2] : ys[i + 1];
+                    const cp1x = x1 + (x2 - x0) / 6, cp1y = y1 + (y2 - y0) / 6;
+                    const cp2x = x2 - (x3 - x1) / 6, cp2y = y2 - (y3 - y1) / 6;
+                    d += ` C${cp1x.toFixed(1)},${cp1y.toFixed(1)} ${cp2x.toFixed(1)},${cp2y.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`;
                 }
                 return d;
             }
@@ -1729,8 +1879,8 @@
             orderedIdx.forEach((k, oi) => {
                 const name = constructors[k];
                 const color = colors[name];
-                const hiYs = Array.from({length:nY},(_,yi)=>yScale(stackHi[oi][yi]));
-                const loYs = Array.from({length:nY},(_,yi)=>yScale(stackLo[oi][yi]));
+                const hiYs = Array.from({ length: nY }, (_, yi) => yScale(stackHi[oi][yi]));
+                const loYs = Array.from({ length: nY }, (_, yi) => yScale(stackLo[oi][yi]));
                 const top = spline(xs, hiYs);
                 const rxs = [...xs].reverse(), rloYs = [...loYs].reverse();
                 const bot = spline(rxs, rloYs);
@@ -1739,26 +1889,26 @@
             });
 
             // X axis
-            const decadeTicks = allYears.filter(y => y%10===0);
+            const decadeTicks = allYears.filter(y => y % 10 === 0);
             const xAxis = decadeTicks.map(y => {
                 const x = xScale(y);
-                return `<line x1="${x}" y1="${padT}" x2="${x}" y2="${padT+plotH+4}" stroke="#ddd" stroke-width="1"/>
-                        <text x="${x}" y="${padT+plotH+16}" text-anchor="middle" font-size="10" fill="#888">${y}</text>`;
+                return `<line x1="${x}" y1="${padT}" x2="${x}" y2="${padT + plotH + 4}" stroke="#ddd" stroke-width="1"/>
+                        <text x="${x}" y="${padT + plotH + 16}" text-anchor="middle" font-size="10" fill="#888">${y}</text>`;
             }).join('');
 
             // Gap annotation
-            const gx1 = xScale(2007)+2, gx2 = xScale(2011)-2;
-            const gap = `<rect x="${gx1}" y="${padT}" width="${gx2-gx1}" height="${plotH}" fill="white" fill-opacity="0.7"/>
-                <line x1="${gx1}" y1="${padT}" x2="${gx1}" y2="${padT+plotH}" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4,3"/>
-                <line x1="${gx2}" y1="${padT}" x2="${gx2}" y2="${padT+plotH}" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4,3"/>
-                <text x="${(gx1+gx2)/2}" y="${padT+plotH/2-7}" text-anchor="middle" font-size="9" fill="#aaa">2008–10</text>
-                <text x="${(gx1+gx2)/2}" y="${padT+plotH/2+5}" text-anchor="middle" font-size="9" fill="#aaa">no data</text>`;
+            const gx1 = xScale(2007) + 2, gx2 = xScale(2011) - 2;
+            const gap = `<rect x="${gx1}" y="${padT}" width="${gx2 - gx1}" height="${plotH}" fill="white" fill-opacity="0.7"/>
+                <line x1="${gx1}" y1="${padT}" x2="${gx1}" y2="${padT + plotH}" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <line x1="${gx2}" y1="${padT}" x2="${gx2}" y2="${padT + plotH}" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="${(gx1 + gx2) / 2}" y="${padT + plotH / 2 - 7}" text-anchor="middle" font-size="9" fill="#aaa">2008–10</text>
+                <text x="${(gx1 + gx2) / 2}" y="${padT + plotH / 2 + 5}" text-anchor="middle" font-size="9" fill="#aaa">no data</text>`;
 
             // Legend: two rows along the top
             const legendItems = constructors.map((name, i) => {
                 const x = padL + i * (plotW / constructors.length) + 2;
                 return `<rect x="${x}" y="4" width="10" height="10" rx="2" fill="${colors[name]}" fill-opacity="0.9"/>
-                        <text x="${x+13}" y="13" font-size="9.5" fill="#444">${name}</text>`;
+                        <text x="${x + 13}" y="13" font-size="9.5" fill="#444">${name}</text>`;
             }).join('');
 
             // Tooltip zones — one thin rect per year
@@ -1768,18 +1918,18 @@
                 const content = orderedIdx
                     .map(k => ({ name: constructors[k], pts: matrix[yi][k] }))
                     .filter(d => d.pts > 0)
-                    .sort((a,b) => b.pts - a.pts)
+                    .sort((a, b) => b.pts - a.pts)
                     .map(d => `${d.name}:::${d.pts}`)
                     .join('||');
-                return `<rect x="${(cx2-colW/2).toFixed(1)}" y="${padT}" width="${Math.max(colW,1).toFixed(1)}" height="${plotH}"
+                return `<rect x="${(cx2 - colW / 2).toFixed(1)}" y="${padT}" width="${Math.max(colW, 1).toFixed(1)}" height="${plotH}"
                     fill="transparent" class="steam-tip" data-year="${yr}" data-content="${content}" style="cursor:crosshair"/>`;
             }).join('');
 
-            const hline = `<line id="sg-hline" x1="0" y1="${padT}" x2="0" y2="${padT+plotH}" stroke="#333" stroke-width="1" stroke-dasharray="3,3" opacity="0" pointer-events="none"/>`;
+            const hline = `<line id="sg-hline" x1="0" y1="${padT}" x2="0" y2="${padT + plotH}" stroke="#333" stroke-width="1" stroke-dasharray="3,3" opacity="0" pointer-events="none"/>`;
 
             const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 ${W} ${H}"
                 style="display:block;background:white;border-radius:6px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
-                <text x="${padL}" y="${padT-16}" font-size="10" fill="#888">Stream height = season championship points | Top 10 constructors by career total</text>
+                <text x="${padL}" y="${padT - 16}" font-size="10" fill="#888">Stream height = season championship points | Top 10 constructors by career total</text>
                 ${legendItems}
                 ${streams}
                 ${gap}
@@ -1803,19 +1953,19 @@
                     const yr = el.dataset.year;
                     const rows = el.dataset.content.split('||').map(s => {
                         const [name, pts] = s.split(':::');
-                        return `<span style="color:${colors[name]||'#fff'};font-weight:500">${name}</span>: ${Math.round(pts)} pts`;
+                        return `<span style="color:${colors[name] || '#fff'};font-weight:500">${name}</span>: ${Math.round(pts)} pts`;
                     }).join('<br>');
                     tip.innerHTML = `<strong style="font-size:12px">${yr}</strong><br>${rows}`;
                     tip.style.display = 'block';
                     tip.style.left = (e.clientX + 16) + 'px';
-                    tip.style.top  = Math.max(10, e.clientY - 30) + 'px';
+                    tip.style.top = Math.max(10, e.clientY - 30) + 'px';
                     const svgRect = container.querySelector('svg').getBoundingClientRect();
                     const rx = ((e.clientX - svgRect.left) / svgRect.width * W).toFixed(1);
-                    sgLine.setAttribute('x1', rx); sgLine.setAttribute('x2', rx); sgLine.setAttribute('opacity','0.5');
+                    sgLine.setAttribute('x1', rx); sgLine.setAttribute('x2', rx); sgLine.setAttribute('opacity', '0.5');
                 });
                 el.addEventListener('mouseleave', () => {
                     tip.style.display = 'none';
-                    sgLine.setAttribute('opacity','0');
+                    sgLine.setAttribute('opacity', '0');
                 });
             });
 
@@ -1823,8 +1973,8 @@
             container.querySelectorAll('.steam-stream').forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     container.querySelectorAll('.steam-stream').forEach(s => {
-                        s.style.fillOpacity = s===el ? '1' : '0.15';
-                        s.style.strokeOpacity = s===el ? '1' : '0.1';
+                        s.style.fillOpacity = s === el ? '1' : '0.15';
+                        s.style.strokeOpacity = s === el ? '1' : '0.1';
                     });
                 });
                 el.addEventListener('mouseleave', () => {
