@@ -1,0 +1,4877 @@
+[
+  {
+    "year": 1950,
+    "constructor": "Ferrari",
+    "points": 20.0
+  },
+  {
+    "year": 1950,
+    "constructor": "Red Bull",
+    "points": 56.5
+  },
+  {
+    "year": 1950,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1950,
+    "constructor": "McLaren",
+    "points": 13.0
+  },
+  {
+    "year": 1950,
+    "constructor": "Williams",
+    "points": 11.5
+  },
+  {
+    "year": 1950,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1950,
+    "constructor": "Alfa Romeo",
+    "points": 96.0
+  },
+  {
+    "year": 1950,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1950,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1950,
+    "constructor": "Toro Rosso",
+    "points": 5.0
+  },
+  {
+    "year": 1950,
+    "constructor": "Force India",
+    "points": 0.0
+  },
+  {
+    "year": 1950,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1950,
+    "constructor": "Maserati",
+    "points": 32.5
+  },
+  {
+    "year": 1951,
+    "constructor": "Ferrari",
+    "points": 47.0
+  },
+  {
+    "year": 1951,
+    "constructor": "Red Bull",
+    "points": 64.0
+  },
+  {
+    "year": 1951,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1951,
+    "constructor": "McLaren",
+    "points": 52.0
+  },
+  {
+    "year": 1951,
+    "constructor": "Williams",
+    "points": 23.0
+  },
+  {
+    "year": 1951,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1951,
+    "constructor": "Alfa Romeo",
+    "points": 60.0
+  },
+  {
+    "year": 1951,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1951,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1951,
+    "constructor": "Toro Rosso",
+    "points": 0.0
+  },
+  {
+    "year": 1951,
+    "constructor": "Force India",
+    "points": 13.0
+  },
+  {
+    "year": 1951,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1951,
+    "constructor": "Maserati",
+    "points": 22.0
+  },
+  {
+    "year": 1952,
+    "constructor": "Ferrari",
+    "points": 72.0
+  },
+  {
+    "year": 1952,
+    "constructor": "Red Bull",
+    "points": 48.0
+  },
+  {
+    "year": 1952,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1952,
+    "constructor": "McLaren",
+    "points": 59.0
+  },
+  {
+    "year": 1952,
+    "constructor": "Williams",
+    "points": 15.0
+  },
+  {
+    "year": 1952,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1952,
+    "constructor": "Alfa Romeo",
+    "points": 16.0
+  },
+  {
+    "year": 1952,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1952,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1952,
+    "constructor": "Toro Rosso",
+    "points": 9.0
+  },
+  {
+    "year": 1952,
+    "constructor": "Force India",
+    "points": 0.0
+  },
+  {
+    "year": 1952,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1952,
+    "constructor": "Maserati",
+    "points": 14.0
+  },
+  {
+    "year": 1953,
+    "constructor": "Ferrari",
+    "points": 65.0
+  },
+  {
+    "year": 1953,
+    "constructor": "Red Bull",
+    "points": 11.0
+  },
+  {
+    "year": 1953,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1953,
+    "constructor": "McLaren",
+    "points": 76.0
+  },
+  {
+    "year": 1953,
+    "constructor": "Williams",
+    "points": 2.0
+  },
+  {
+    "year": 1953,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1953,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1953,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1953,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1953,
+    "constructor": "Toro Rosso",
+    "points": 21.0
+  },
+  {
+    "year": 1953,
+    "constructor": "Force India",
+    "points": 0.0
+  },
+  {
+    "year": 1953,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1953,
+    "constructor": "Maserati",
+    "points": 32.0
+  },
+  {
+    "year": 1954,
+    "constructor": "Ferrari",
+    "points": 87.0
+  },
+  {
+    "year": 1954,
+    "constructor": "Red Bull",
+    "points": 7.0
+  },
+  {
+    "year": 1954,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1954,
+    "constructor": "McLaren",
+    "points": 80.0
+  },
+  {
+    "year": 1954,
+    "constructor": "Williams",
+    "points": 14.0
+  },
+  {
+    "year": 1954,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1954,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1954,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1954,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1954,
+    "constructor": "Toro Rosso",
+    "points": 12.0
+  },
+  {
+    "year": 1954,
+    "constructor": "Force India",
+    "points": 0.0
+  },
+  {
+    "year": 1954,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1954,
+    "constructor": "Maserati",
+    "points": 20.0
+  },
+  {
+    "year": 1955,
+    "constructor": "Ferrari",
+    "points": 70.0
+  },
+  {
+    "year": 1955,
+    "constructor": "Red Bull",
+    "points": 12.0
+  },
+  {
+    "year": 1955,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1955,
+    "constructor": "McLaren",
+    "points": 95.0
+  },
+  {
+    "year": 1955,
+    "constructor": "Williams",
+    "points": 15.0
+  },
+  {
+    "year": 1955,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1955,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1955,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1955,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1955,
+    "constructor": "Toro Rosso",
+    "points": 0.0
+  },
+  {
+    "year": 1955,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1955,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1955,
+    "constructor": "Maserati",
+    "points": 7.0
+  },
+  {
+    "year": 1956,
+    "constructor": "Ferrari",
+    "points": 100.0
+  },
+  {
+    "year": 1956,
+    "constructor": "Red Bull",
+    "points": 9.0
+  },
+  {
+    "year": 1956,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1956,
+    "constructor": "McLaren",
+    "points": 80.0
+  },
+  {
+    "year": 1956,
+    "constructor": "Williams",
+    "points": 18.0
+  },
+  {
+    "year": 1956,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1956,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1956,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1956,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1956,
+    "constructor": "Toro Rosso",
+    "points": 8.0
+  },
+  {
+    "year": 1956,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1956,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1956,
+    "constructor": "Maserati",
+    "points": 2.0
+  },
+  {
+    "year": 1957,
+    "constructor": "Ferrari",
+    "points": 90.0
+  },
+  {
+    "year": 1957,
+    "constructor": "Red Bull",
+    "points": 10.0
+  },
+  {
+    "year": 1957,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1957,
+    "constructor": "McLaren",
+    "points": 50.0
+  },
+  {
+    "year": 1957,
+    "constructor": "Williams",
+    "points": 5.0
+  },
+  {
+    "year": 1957,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1957,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1957,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1957,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1957,
+    "constructor": "Toro Rosso",
+    "points": 1.0
+  },
+  {
+    "year": 1957,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1957,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1957,
+    "constructor": "Maserati",
+    "points": 15.0
+  },
+  {
+    "year": 1958,
+    "constructor": "Ferrari",
+    "points": 106.0
+  },
+  {
+    "year": 1958,
+    "constructor": "Red Bull",
+    "points": 16.0
+  },
+  {
+    "year": 1958,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1958,
+    "constructor": "McLaren",
+    "points": 54.0
+  },
+  {
+    "year": 1958,
+    "constructor": "Williams",
+    "points": 11.0
+  },
+  {
+    "year": 1958,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1958,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1958,
+    "constructor": "Sauber",
+    "points": 0.0
+  },
+  {
+    "year": 1958,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1958,
+    "constructor": "Toro Rosso",
+    "points": 0.0
+  },
+  {
+    "year": 1958,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1958,
+    "constructor": "March",
+    "points": 0.0
+  },
+  {
+    "year": 1958,
+    "constructor": "Maserati",
+    "points": 31.0
+  },
+  {
+    "year": 1959,
+    "constructor": "Ferrari",
+    "points": 59.0
+  },
+  {
+    "year": 1959,
+    "constructor": "Red Bull",
+    "points": 11.0
+  },
+  {
+    "year": 1959,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1959,
+    "constructor": "McLaren",
+    "points": 62.0
+  },
+  {
+    "year": 1959,
+    "constructor": "Williams",
+    "points": 37.0
+  },
+  {
+    "year": 1959,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1959,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1959,
+    "constructor": "Sauber",
+    "points": 13.0
+  },
+  {
+    "year": 1959,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1959,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1959,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1959,
+    "constructor": "March",
+    "points": 5.0
+  },
+  {
+    "year": 1959,
+    "constructor": "Maserati",
+    "points": 41.0
+  },
+  {
+    "year": 1960,
+    "constructor": "Ferrari",
+    "points": 31.0
+  },
+  {
+    "year": 1960,
+    "constructor": "Red Bull",
+    "points": 12.0
+  },
+  {
+    "year": 1960,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1960,
+    "constructor": "McLaren",
+    "points": 111.0
+  },
+  {
+    "year": 1960,
+    "constructor": "Williams",
+    "points": 19.0
+  },
+  {
+    "year": 1960,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1960,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1960,
+    "constructor": "Sauber",
+    "points": 7.0
+  },
+  {
+    "year": 1960,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1960,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1960,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1960,
+    "constructor": "March",
+    "points": 33.0
+  },
+  {
+    "year": 1960,
+    "constructor": "Maserati",
+    "points": 35.0
+  },
+  {
+    "year": 1961,
+    "constructor": "Ferrari",
+    "points": 124.0
+  },
+  {
+    "year": 1961,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1961,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1961,
+    "constructor": "McLaren",
+    "points": 12.0
+  },
+  {
+    "year": 1961,
+    "constructor": "Williams",
+    "points": 36.0
+  },
+  {
+    "year": 1961,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1961,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1961,
+    "constructor": "Sauber",
+    "points": 15.0
+  },
+  {
+    "year": 1961,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1961,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1961,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1961,
+    "constructor": "March",
+    "points": 52.0
+  },
+  {
+    "year": 1961,
+    "constructor": "Maserati",
+    "points": 4.0
+  },
+  {
+    "year": 1962,
+    "constructor": "Ferrari",
+    "points": 120.0
+  },
+  {
+    "year": 1962,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1962,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1962,
+    "constructor": "McLaren",
+    "points": 46.0
+  },
+  {
+    "year": 1962,
+    "constructor": "Williams",
+    "points": 28.0
+  },
+  {
+    "year": 1962,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1962,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1962,
+    "constructor": "Sauber",
+    "points": 17.0
+  },
+  {
+    "year": 1962,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1962,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1962,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1962,
+    "constructor": "March",
+    "points": 53.0
+  },
+  {
+    "year": 1962,
+    "constructor": "Maserati",
+    "points": 5.0
+  },
+  {
+    "year": 1963,
+    "constructor": "Ferrari",
+    "points": 89.0
+  },
+  {
+    "year": 1963,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1963,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1963,
+    "constructor": "McLaren",
+    "points": 84.0
+  },
+  {
+    "year": 1963,
+    "constructor": "Williams",
+    "points": 74.0
+  },
+  {
+    "year": 1963,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1963,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1963,
+    "constructor": "Sauber",
+    "points": 10.0
+  },
+  {
+    "year": 1963,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1963,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1963,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1963,
+    "constructor": "March",
+    "points": 25.0
+  },
+  {
+    "year": 1963,
+    "constructor": "Maserati",
+    "points": 3.0
+  },
+  {
+    "year": 1964,
+    "constructor": "Ferrari",
+    "points": 87.0
+  },
+  {
+    "year": 1964,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1964,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1964,
+    "constructor": "McLaren",
+    "points": 69.0
+  },
+  {
+    "year": 1964,
+    "constructor": "Williams",
+    "points": 94.0
+  },
+  {
+    "year": 1964,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1964,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1964,
+    "constructor": "Sauber",
+    "points": 11.0
+  },
+  {
+    "year": 1964,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1964,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1964,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1964,
+    "constructor": "March",
+    "points": 15.0
+  },
+  {
+    "year": 1964,
+    "constructor": "Maserati",
+    "points": 13.0
+  },
+  {
+    "year": 1965,
+    "constructor": "Ferrari",
+    "points": 102.0
+  },
+  {
+    "year": 1965,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1965,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1965,
+    "constructor": "McLaren",
+    "points": 37.0
+  },
+  {
+    "year": 1965,
+    "constructor": "Williams",
+    "points": 57.0
+  },
+  {
+    "year": 1965,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1965,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1965,
+    "constructor": "Sauber",
+    "points": 9.0
+  },
+  {
+    "year": 1965,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1965,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1965,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1965,
+    "constructor": "March",
+    "points": 0.0
+  },
+  {
+    "year": 1965,
+    "constructor": "Maserati",
+    "points": 2.0
+  },
+  {
+    "year": 1966,
+    "constructor": "Ferrari",
+    "points": 119.0
+  },
+  {
+    "year": 1966,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1966,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1966,
+    "constructor": "McLaren",
+    "points": 28.0
+  },
+  {
+    "year": 1966,
+    "constructor": "Williams",
+    "points": 35.0
+  },
+  {
+    "year": 1966,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1966,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1966,
+    "constructor": "Sauber",
+    "points": 2.0
+  },
+  {
+    "year": 1966,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1966,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1966,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1966,
+    "constructor": "March",
+    "points": 7.0
+  },
+  {
+    "year": 1966,
+    "constructor": "Maserati",
+    "points": 0.0
+  },
+  {
+    "year": 1967,
+    "constructor": "Ferrari",
+    "points": 108.0
+  },
+  {
+    "year": 1967,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1967,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1967,
+    "constructor": "McLaren",
+    "points": 56.0
+  },
+  {
+    "year": 1967,
+    "constructor": "Williams",
+    "points": 43.0
+  },
+  {
+    "year": 1967,
+    "constructor": "Renault",
+    "points": 1.0
+  },
+  {
+    "year": 1967,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1967,
+    "constructor": "Sauber",
+    "points": 16.0
+  },
+  {
+    "year": 1967,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1967,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1967,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1967,
+    "constructor": "March",
+    "points": 12.0
+  },
+  {
+    "year": 1967,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1968,
+    "constructor": "Ferrari",
+    "points": 114.0
+  },
+  {
+    "year": 1968,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1968,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1968,
+    "constructor": "McLaren",
+    "points": 72.0
+  },
+  {
+    "year": 1968,
+    "constructor": "Williams",
+    "points": 49.0
+  },
+  {
+    "year": 1968,
+    "constructor": "Renault",
+    "points": 17.0
+  },
+  {
+    "year": 1968,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1968,
+    "constructor": "Sauber",
+    "points": 6.0
+  },
+  {
+    "year": 1968,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1968,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1968,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1968,
+    "constructor": "March",
+    "points": 11.0
+  },
+  {
+    "year": 1968,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1969,
+    "constructor": "Ferrari",
+    "points": 84.0
+  },
+  {
+    "year": 1969,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1969,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1969,
+    "constructor": "McLaren",
+    "points": 115.0
+  },
+  {
+    "year": 1969,
+    "constructor": "Williams",
+    "points": 22.0
+  },
+  {
+    "year": 1969,
+    "constructor": "Renault",
+    "points": 12.0
+  },
+  {
+    "year": 1969,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1969,
+    "constructor": "Sauber",
+    "points": 5.0
+  },
+  {
+    "year": 1969,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1969,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1969,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1969,
+    "constructor": "March",
+    "points": 7.0
+  },
+  {
+    "year": 1969,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1970,
+    "constructor": "Ferrari",
+    "points": 117.0
+  },
+  {
+    "year": 1970,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1970,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1970,
+    "constructor": "McLaren",
+    "points": 93.0
+  },
+  {
+    "year": 1970,
+    "constructor": "Williams",
+    "points": 21.0
+  },
+  {
+    "year": 1970,
+    "constructor": "Renault",
+    "points": 16.0
+  },
+  {
+    "year": 1970,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1970,
+    "constructor": "Sauber",
+    "points": 4.0
+  },
+  {
+    "year": 1970,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1970,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1970,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1970,
+    "constructor": "March",
+    "points": 7.0
+  },
+  {
+    "year": 1970,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1971,
+    "constructor": "Ferrari",
+    "points": 75.0
+  },
+  {
+    "year": 1971,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1971,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1971,
+    "constructor": "McLaren",
+    "points": 91.0
+  },
+  {
+    "year": 1971,
+    "constructor": "Williams",
+    "points": 24.0
+  },
+  {
+    "year": 1971,
+    "constructor": "Renault",
+    "points": 7.0
+  },
+  {
+    "year": 1971,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1971,
+    "constructor": "Sauber",
+    "points": 4.0
+  },
+  {
+    "year": 1971,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1971,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1971,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1971,
+    "constructor": "March",
+    "points": 0.0
+  },
+  {
+    "year": 1971,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1972,
+    "constructor": "Ferrari",
+    "points": 97.0
+  },
+  {
+    "year": 1972,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1972,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1972,
+    "constructor": "McLaren",
+    "points": 89.0
+  },
+  {
+    "year": 1972,
+    "constructor": "Williams",
+    "points": 25.0
+  },
+  {
+    "year": 1972,
+    "constructor": "Renault",
+    "points": 25.0
+  },
+  {
+    "year": 1972,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1972,
+    "constructor": "Sauber",
+    "points": 7.0
+  },
+  {
+    "year": 1972,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1972,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1972,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1972,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1972,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1973,
+    "constructor": "Ferrari",
+    "points": 99.0
+  },
+  {
+    "year": 1973,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1973,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1973,
+    "constructor": "McLaren",
+    "points": 56.0
+  },
+  {
+    "year": 1973,
+    "constructor": "Williams",
+    "points": 83.0
+  },
+  {
+    "year": 1973,
+    "constructor": "Renault",
+    "points": 48.0
+  },
+  {
+    "year": 1973,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1973,
+    "constructor": "Sauber",
+    "points": 15.0
+  },
+  {
+    "year": 1973,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1973,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1973,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1973,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1973,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1974,
+    "constructor": "Ferrari",
+    "points": 53.0
+  },
+  {
+    "year": 1974,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1974,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1974,
+    "constructor": "McLaren",
+    "points": 61.0
+  },
+  {
+    "year": 1974,
+    "constructor": "Williams",
+    "points": 146.0
+  },
+  {
+    "year": 1974,
+    "constructor": "Renault",
+    "points": 55.0
+  },
+  {
+    "year": 1974,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1974,
+    "constructor": "Sauber",
+    "points": 11.0
+  },
+  {
+    "year": 1974,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1974,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1974,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1974,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1974,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1975,
+    "constructor": "Ferrari",
+    "points": 76.0
+  },
+  {
+    "year": 1975,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1975,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1975,
+    "constructor": "McLaren",
+    "points": 31.0
+  },
+  {
+    "year": 1975,
+    "constructor": "Williams",
+    "points": 112.0
+  },
+  {
+    "year": 1975,
+    "constructor": "Renault",
+    "points": 81.0
+  },
+  {
+    "year": 1975,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1975,
+    "constructor": "Sauber",
+    "points": 5.0
+  },
+  {
+    "year": 1975,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 1975,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1975,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1975,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1975,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1976,
+    "constructor": "Ferrari",
+    "points": 54.0
+  },
+  {
+    "year": 1976,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1976,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1976,
+    "constructor": "McLaren",
+    "points": 32.0
+  },
+  {
+    "year": 1976,
+    "constructor": "Williams",
+    "points": 87.0
+  },
+  {
+    "year": 1976,
+    "constructor": "Renault",
+    "points": 139.0
+  },
+  {
+    "year": 1976,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1976,
+    "constructor": "Sauber",
+    "points": 20.0
+  },
+  {
+    "year": 1976,
+    "constructor": "Lotus F1",
+    "points": 0.0
+  },
+  {
+    "year": 1976,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1976,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1976,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1976,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1977,
+    "constructor": "Ferrari",
+    "points": 50.0
+  },
+  {
+    "year": 1977,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1977,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1977,
+    "constructor": "McLaren",
+    "points": 58.0
+  },
+  {
+    "year": 1977,
+    "constructor": "Williams",
+    "points": 147.0
+  },
+  {
+    "year": 1977,
+    "constructor": "Renault",
+    "points": 75.0
+  },
+  {
+    "year": 1977,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1977,
+    "constructor": "Sauber",
+    "points": 11.0
+  },
+  {
+    "year": 1977,
+    "constructor": "Lotus F1",
+    "points": 7.0
+  },
+  {
+    "year": 1977,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1977,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1977,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1977,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1978,
+    "constructor": "Ferrari",
+    "points": 32.0
+  },
+  {
+    "year": 1978,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1978,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1978,
+    "constructor": "McLaren",
+    "points": 67.0
+  },
+  {
+    "year": 1978,
+    "constructor": "Williams",
+    "points": 180.0
+  },
+  {
+    "year": 1978,
+    "constructor": "Renault",
+    "points": 71.0
+  },
+  {
+    "year": 1978,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1978,
+    "constructor": "Sauber",
+    "points": 7.0
+  },
+  {
+    "year": 1978,
+    "constructor": "Lotus F1",
+    "points": 7.0
+  },
+  {
+    "year": 1978,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1978,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1978,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1978,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1979,
+    "constructor": "Ferrari",
+    "points": 22.0
+  },
+  {
+    "year": 1979,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1979,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1979,
+    "constructor": "McLaren",
+    "points": 100.0
+  },
+  {
+    "year": 1979,
+    "constructor": "Williams",
+    "points": 116.0
+  },
+  {
+    "year": 1979,
+    "constructor": "Renault",
+    "points": 84.0
+  },
+  {
+    "year": 1979,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1979,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1979,
+    "constructor": "Lotus F1",
+    "points": 11.0
+  },
+  {
+    "year": 1979,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1979,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1979,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1979,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1980,
+    "constructor": "Ferrari",
+    "points": 46.0
+  },
+  {
+    "year": 1980,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1980,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1980,
+    "constructor": "McLaren",
+    "points": 106.0
+  },
+  {
+    "year": 1980,
+    "constructor": "Williams",
+    "points": 117.0
+  },
+  {
+    "year": 1980,
+    "constructor": "Renault",
+    "points": 33.0
+  },
+  {
+    "year": 1980,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1980,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1980,
+    "constructor": "Lotus F1",
+    "points": 3.0
+  },
+  {
+    "year": 1980,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1980,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1980,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1980,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1981,
+    "constructor": "Ferrari",
+    "points": 75.5
+  },
+  {
+    "year": 1981,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1981,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1981,
+    "constructor": "McLaren",
+    "points": 132.0
+  },
+  {
+    "year": 1981,
+    "constructor": "Williams",
+    "points": 52.0
+  },
+  {
+    "year": 1981,
+    "constructor": "Renault",
+    "points": 41.5
+  },
+  {
+    "year": 1981,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1981,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1981,
+    "constructor": "Lotus F1",
+    "points": 3.0
+  },
+  {
+    "year": 1981,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1981,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1981,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1981,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1982,
+    "constructor": "Ferrari",
+    "points": 246.0
+  },
+  {
+    "year": 1982,
+    "constructor": "Red Bull",
+    "points": 272.0
+  },
+  {
+    "year": 1982,
+    "constructor": "Mercedes",
+    "points": 132.0
+  },
+  {
+    "year": 1982,
+    "constructor": "McLaren",
+    "points": 312.0
+  },
+  {
+    "year": 1982,
+    "constructor": "Williams",
+    "points": 44.0
+  },
+  {
+    "year": 1982,
+    "constructor": "Renault",
+    "points": 31.0
+  },
+  {
+    "year": 1982,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1982,
+    "constructor": "Sauber",
+    "points": 15.0
+  },
+  {
+    "year": 1982,
+    "constructor": "Lotus F1",
+    "points": 0.0
+  },
+  {
+    "year": 1982,
+    "constructor": "Toro Rosso",
+    "points": 10.0
+  },
+  {
+    "year": 1982,
+    "constructor": "Force India",
+    "points": 47.0
+  },
+  {
+    "year": 1982,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1982,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1983,
+    "constructor": "Ferrari",
+    "points": 197.0
+  },
+  {
+    "year": 1983,
+    "constructor": "Red Bull",
+    "points": 226.0
+  },
+  {
+    "year": 1983,
+    "constructor": "Mercedes",
+    "points": 82.0
+  },
+  {
+    "year": 1983,
+    "constructor": "McLaren",
+    "points": 210.0
+  },
+  {
+    "year": 1983,
+    "constructor": "Williams",
+    "points": 69.0
+  },
+  {
+    "year": 1983,
+    "constructor": "Renault",
+    "points": 13.0
+  },
+  {
+    "year": 1983,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1983,
+    "constructor": "Sauber",
+    "points": 29.0
+  },
+  {
+    "year": 1983,
+    "constructor": "Lotus F1",
+    "points": 3.0
+  },
+  {
+    "year": 1983,
+    "constructor": "Toro Rosso",
+    "points": 3.0
+  },
+  {
+    "year": 1983,
+    "constructor": "Force India",
+    "points": 21.0
+  },
+  {
+    "year": 1983,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1983,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1984,
+    "constructor": "Ferrari",
+    "points": 77.0
+  },
+  {
+    "year": 1984,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1984,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1984,
+    "constructor": "McLaren",
+    "points": 148.0
+  },
+  {
+    "year": 1984,
+    "constructor": "Williams",
+    "points": 47.0
+  },
+  {
+    "year": 1984,
+    "constructor": "Renault",
+    "points": 34.0
+  },
+  {
+    "year": 1984,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1984,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1984,
+    "constructor": "Lotus F1",
+    "points": 24.0
+  },
+  {
+    "year": 1984,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1984,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1984,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1984,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1985,
+    "constructor": "Ferrari",
+    "points": 52.0
+  },
+  {
+    "year": 1985,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1985,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1985,
+    "constructor": "McLaren",
+    "points": 167.0
+  },
+  {
+    "year": 1985,
+    "constructor": "Williams",
+    "points": 41.0
+  },
+  {
+    "year": 1985,
+    "constructor": "Renault",
+    "points": 33.0
+  },
+  {
+    "year": 1985,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1985,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1985,
+    "constructor": "Lotus F1",
+    "points": 29.0
+  },
+  {
+    "year": 1985,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1985,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1985,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1985,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1986,
+    "constructor": "Ferrari",
+    "points": 42.0
+  },
+  {
+    "year": 1986,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1986,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1986,
+    "constructor": "McLaren",
+    "points": 63.0
+  },
+  {
+    "year": 1986,
+    "constructor": "Williams",
+    "points": 136.0
+  },
+  {
+    "year": 1986,
+    "constructor": "Renault",
+    "points": 34.0
+  },
+  {
+    "year": 1986,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1986,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1986,
+    "constructor": "Lotus F1",
+    "points": 61.0
+  },
+  {
+    "year": 1986,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1986,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1986,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1986,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1987,
+    "constructor": "Ferrari",
+    "points": 49.0
+  },
+  {
+    "year": 1987,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1987,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1987,
+    "constructor": "McLaren",
+    "points": 87.0
+  },
+  {
+    "year": 1987,
+    "constructor": "Williams",
+    "points": 122.0
+  },
+  {
+    "year": 1987,
+    "constructor": "Renault",
+    "points": 11.0
+  },
+  {
+    "year": 1987,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1987,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1987,
+    "constructor": "Lotus F1",
+    "points": 59.0
+  },
+  {
+    "year": 1987,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1987,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1987,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1987,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1988,
+    "constructor": "Ferrari",
+    "points": 67.0
+  },
+  {
+    "year": 1988,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1988,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1988,
+    "constructor": "McLaren",
+    "points": 90.0
+  },
+  {
+    "year": 1988,
+    "constructor": "Williams",
+    "points": 75.0
+  },
+  {
+    "year": 1988,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1988,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1988,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1988,
+    "constructor": "Lotus F1",
+    "points": 59.0
+  },
+  {
+    "year": 1988,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1988,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1988,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1988,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1989,
+    "constructor": "Ferrari",
+    "points": 57.5
+  },
+  {
+    "year": 1989,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1989,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1989,
+    "constructor": "McLaren",
+    "points": 134.5
+  },
+  {
+    "year": 1989,
+    "constructor": "Williams",
+    "points": 19.5
+  },
+  {
+    "year": 1989,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1989,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1989,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1989,
+    "constructor": "Lotus F1",
+    "points": 43.0
+  },
+  {
+    "year": 1989,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1989,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1989,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1989,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1990,
+    "constructor": "Ferrari",
+    "points": 89.0
+  },
+  {
+    "year": 1990,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1990,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1990,
+    "constructor": "McLaren",
+    "points": 34.0
+  },
+  {
+    "year": 1990,
+    "constructor": "Williams",
+    "points": 38.0
+  },
+  {
+    "year": 1990,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1990,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1990,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1990,
+    "constructor": "Lotus F1",
+    "points": 12.0
+  },
+  {
+    "year": 1990,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1990,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1990,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1990,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1991,
+    "constructor": "Ferrari",
+    "points": 74.0
+  },
+  {
+    "year": 1991,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1991,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1991,
+    "constructor": "McLaren",
+    "points": 63.0
+  },
+  {
+    "year": 1991,
+    "constructor": "Williams",
+    "points": 55.0
+  },
+  {
+    "year": 1991,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1991,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1991,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1991,
+    "constructor": "Lotus F1",
+    "points": 30.0
+  },
+  {
+    "year": 1991,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1991,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1991,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1991,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1992,
+    "constructor": "Ferrari",
+    "points": 34.0
+  },
+  {
+    "year": 1992,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1992,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1992,
+    "constructor": "McLaren",
+    "points": 34.0
+  },
+  {
+    "year": 1992,
+    "constructor": "Williams",
+    "points": 89.0
+  },
+  {
+    "year": 1992,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1992,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1992,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1992,
+    "constructor": "Lotus F1",
+    "points": 19.0
+  },
+  {
+    "year": 1992,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1992,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1992,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1992,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1993,
+    "constructor": "Ferrari",
+    "points": 8.0
+  },
+  {
+    "year": 1993,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1993,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1993,
+    "constructor": "McLaren",
+    "points": 11.0
+  },
+  {
+    "year": 1993,
+    "constructor": "Williams",
+    "points": 129.0
+  },
+  {
+    "year": 1993,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1993,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1993,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1993,
+    "constructor": "Lotus F1",
+    "points": 17.0
+  },
+  {
+    "year": 1993,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1993,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1993,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1993,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1994,
+    "constructor": "Ferrari",
+    "points": 113.0
+  },
+  {
+    "year": 1994,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1994,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1994,
+    "constructor": "McLaren",
+    "points": 15.0
+  },
+  {
+    "year": 1994,
+    "constructor": "Williams",
+    "points": 75.0
+  },
+  {
+    "year": 1994,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1994,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1994,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1994,
+    "constructor": "Lotus F1",
+    "points": 39.0
+  },
+  {
+    "year": 1994,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1994,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1994,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1994,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1995,
+    "constructor": "Ferrari",
+    "points": 58.0
+  },
+  {
+    "year": 1995,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1995,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1995,
+    "constructor": "McLaren",
+    "points": 15.0
+  },
+  {
+    "year": 1995,
+    "constructor": "Williams",
+    "points": 11.0
+  },
+  {
+    "year": 1995,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1995,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1995,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1995,
+    "constructor": "Lotus F1",
+    "points": 86.0
+  },
+  {
+    "year": 1995,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1995,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1995,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1995,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1996,
+    "constructor": "Ferrari",
+    "points": 91.0
+  },
+  {
+    "year": 1996,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1996,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1996,
+    "constructor": "McLaren",
+    "points": 47.0
+  },
+  {
+    "year": 1996,
+    "constructor": "Williams",
+    "points": 0
+  },
+  {
+    "year": 1996,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1996,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1996,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1996,
+    "constructor": "Lotus F1",
+    "points": 62.0
+  },
+  {
+    "year": 1996,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1996,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1996,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1996,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1997,
+    "constructor": "Ferrari",
+    "points": 83.0
+  },
+  {
+    "year": 1997,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1997,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1997,
+    "constructor": "McLaren",
+    "points": 75.0
+  },
+  {
+    "year": 1997,
+    "constructor": "Williams",
+    "points": 0.0
+  },
+  {
+    "year": 1997,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1997,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1997,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1997,
+    "constructor": "Lotus F1",
+    "points": 20.0
+  },
+  {
+    "year": 1997,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1997,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1997,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1997,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1998,
+    "constructor": "Ferrari",
+    "points": 69.5
+  },
+  {
+    "year": 1998,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1998,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1998,
+    "constructor": "McLaren",
+    "points": 60.0
+  },
+  {
+    "year": 1998,
+    "constructor": "Williams",
+    "points": 6.0
+  },
+  {
+    "year": 1998,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1998,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1998,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1998,
+    "constructor": "Lotus F1",
+    "points": 16.0
+  },
+  {
+    "year": 1998,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1998,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1998,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1998,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 1999,
+    "constructor": "Ferrari",
+    "points": 74.0
+  },
+  {
+    "year": 1999,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 1999,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 1999,
+    "constructor": "McLaren",
+    "points": 78.0
+  },
+  {
+    "year": 1999,
+    "constructor": "Williams",
+    "points": 0.0
+  },
+  {
+    "year": 1999,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 1999,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 1999,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 1999,
+    "constructor": "Lotus F1",
+    "points": 44.0
+  },
+  {
+    "year": 1999,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 1999,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 1999,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 1999,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2000,
+    "constructor": "Ferrari",
+    "points": 12.0
+  },
+  {
+    "year": 2000,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 2000,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 2000,
+    "constructor": "McLaren",
+    "points": 61.0
+  },
+  {
+    "year": 2000,
+    "constructor": "Williams",
+    "points": 0
+  },
+  {
+    "year": 2000,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2000,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2000,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 2000,
+    "constructor": "Lotus F1",
+    "points": 96.0
+  },
+  {
+    "year": 2000,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 2000,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2000,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2000,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2001,
+    "constructor": "Ferrari",
+    "points": 61.0
+  },
+  {
+    "year": 2001,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 2001,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 2001,
+    "constructor": "McLaren",
+    "points": 59.0
+  },
+  {
+    "year": 2001,
+    "constructor": "Williams",
+    "points": 0
+  },
+  {
+    "year": 2001,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2001,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2001,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 2001,
+    "constructor": "Lotus F1",
+    "points": 61.0
+  },
+  {
+    "year": 2001,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 2001,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2001,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2001,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2002,
+    "constructor": "Ferrari",
+    "points": 36.0
+  },
+  {
+    "year": 2002,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 2002,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 2002,
+    "constructor": "McLaren",
+    "points": 4.0
+  },
+  {
+    "year": 2002,
+    "constructor": "Williams",
+    "points": 0
+  },
+  {
+    "year": 2002,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2002,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2002,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 2002,
+    "constructor": "Lotus F1",
+    "points": 53.0
+  },
+  {
+    "year": 2002,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 2002,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2002,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2002,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2003,
+    "constructor": "Ferrari",
+    "points": 37.0
+  },
+  {
+    "year": 2003,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 2003,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 2003,
+    "constructor": "McLaren",
+    "points": 0
+  },
+  {
+    "year": 2003,
+    "constructor": "Williams",
+    "points": 0
+  },
+  {
+    "year": 2003,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2003,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2003,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 2003,
+    "constructor": "Lotus F1",
+    "points": 9.0
+  },
+  {
+    "year": 2003,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 2003,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2003,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2003,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2004,
+    "constructor": "Ferrari",
+    "points": 43.0
+  },
+  {
+    "year": 2004,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 2004,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 2004,
+    "constructor": "McLaren",
+    "points": 0.0
+  },
+  {
+    "year": 2004,
+    "constructor": "Williams",
+    "points": 0
+  },
+  {
+    "year": 2004,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2004,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2004,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 2004,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2004,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 2004,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2004,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2004,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2005,
+    "constructor": "Ferrari",
+    "points": 53.0
+  },
+  {
+    "year": 2005,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 2005,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 2005,
+    "constructor": "McLaren",
+    "points": 0
+  },
+  {
+    "year": 2005,
+    "constructor": "Williams",
+    "points": 0
+  },
+  {
+    "year": 2005,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2005,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2005,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 2005,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2005,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 2005,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2005,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2005,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2006,
+    "constructor": "Ferrari",
+    "points": 64.0
+  },
+  {
+    "year": 2006,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 2006,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 2006,
+    "constructor": "McLaren",
+    "points": 0
+  },
+  {
+    "year": 2006,
+    "constructor": "Williams",
+    "points": 0
+  },
+  {
+    "year": 2006,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2006,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2006,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 2006,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2006,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 2006,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2006,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2006,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2007,
+    "constructor": "Ferrari",
+    "points": 41.0
+  },
+  {
+    "year": 2007,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 2007,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 2007,
+    "constructor": "McLaren",
+    "points": 0
+  },
+  {
+    "year": 2007,
+    "constructor": "Williams",
+    "points": 0
+  },
+  {
+    "year": 2007,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2007,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2007,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 2007,
+    "constructor": "Lotus F1",
+    "points": 0.0
+  },
+  {
+    "year": 2007,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 2007,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2007,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2007,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2008,
+    "constructor": "Ferrari",
+    "points": 87.0
+  },
+  {
+    "year": 2008,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 2008,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 2008,
+    "constructor": "McLaren",
+    "points": 0
+  },
+  {
+    "year": 2008,
+    "constructor": "Williams",
+    "points": 0
+  },
+  {
+    "year": 2008,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2008,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2008,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 2008,
+    "constructor": "Lotus F1",
+    "points": 19.0
+  },
+  {
+    "year": 2008,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 2008,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2008,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2008,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2009,
+    "constructor": "Ferrari",
+    "points": 64.0
+  },
+  {
+    "year": 2009,
+    "constructor": "Red Bull",
+    "points": 0
+  },
+  {
+    "year": 2009,
+    "constructor": "Mercedes",
+    "points": 0
+  },
+  {
+    "year": 2009,
+    "constructor": "McLaren",
+    "points": 0
+  },
+  {
+    "year": 2009,
+    "constructor": "Williams",
+    "points": 0
+  },
+  {
+    "year": 2009,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2009,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2009,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 2009,
+    "constructor": "Lotus F1",
+    "points": 23.0
+  },
+  {
+    "year": 2009,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 2009,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2009,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2009,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2010,
+    "constructor": "Ferrari",
+    "points": 262.0
+  },
+  {
+    "year": 2010,
+    "constructor": "Red Bull",
+    "points": 383.0
+  },
+  {
+    "year": 2010,
+    "constructor": "Mercedes",
+    "points": 80.0
+  },
+  {
+    "year": 2010,
+    "constructor": "McLaren",
+    "points": 280.0
+  },
+  {
+    "year": 2010,
+    "constructor": "Williams",
+    "points": 4.0
+  },
+  {
+    "year": 2010,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2010,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2010,
+    "constructor": "Sauber",
+    "points": 35.0
+  },
+  {
+    "year": 2010,
+    "constructor": "Lotus F1",
+    "points": 3.0
+  },
+  {
+    "year": 2010,
+    "constructor": "Toro Rosso",
+    "points": 22.0
+  },
+  {
+    "year": 2010,
+    "constructor": "Force India",
+    "points": 26.0
+  },
+  {
+    "year": 2010,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2010,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2011,
+    "constructor": "Ferrari",
+    "points": 337.0
+  },
+  {
+    "year": 2011,
+    "constructor": "Red Bull",
+    "points": 497.0
+  },
+  {
+    "year": 2011,
+    "constructor": "Mercedes",
+    "points": 190.0
+  },
+  {
+    "year": 2011,
+    "constructor": "McLaren",
+    "points": 377.0
+  },
+  {
+    "year": 2011,
+    "constructor": "Williams",
+    "points": 48.0
+  },
+  {
+    "year": 2011,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2011,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2011,
+    "constructor": "Sauber",
+    "points": 89.0
+  },
+  {
+    "year": 2011,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2011,
+    "constructor": "Toro Rosso",
+    "points": 25.0
+  },
+  {
+    "year": 2011,
+    "constructor": "Force India",
+    "points": 89.0
+  },
+  {
+    "year": 2011,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2011,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2012,
+    "constructor": "Ferrari",
+    "points": 403.0
+  },
+  {
+    "year": 2012,
+    "constructor": "Red Bull",
+    "points": 480.0
+  },
+  {
+    "year": 2012,
+    "constructor": "Mercedes",
+    "points": 220.0
+  },
+  {
+    "year": 2012,
+    "constructor": "McLaren",
+    "points": 267.0
+  },
+  {
+    "year": 2012,
+    "constructor": "Williams",
+    "points": 29.0
+  },
+  {
+    "year": 2012,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2012,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2012,
+    "constructor": "Sauber",
+    "points": 53.0
+  },
+  {
+    "year": 2012,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2012,
+    "constructor": "Toro Rosso",
+    "points": 44.0
+  },
+  {
+    "year": 2012,
+    "constructor": "Force India",
+    "points": 122.0
+  },
+  {
+    "year": 2012,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2012,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2013,
+    "constructor": "Ferrari",
+    "points": 272.0
+  },
+  {
+    "year": 2013,
+    "constructor": "Red Bull",
+    "points": 489.0
+  },
+  {
+    "year": 2013,
+    "constructor": "Mercedes",
+    "points": 478.0
+  },
+  {
+    "year": 2013,
+    "constructor": "McLaren",
+    "points": 145.0
+  },
+  {
+    "year": 2013,
+    "constructor": "Williams",
+    "points": 90.0
+  },
+  {
+    "year": 2013,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2013,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2013,
+    "constructor": "Sauber",
+    "points": 50.0
+  },
+  {
+    "year": 2013,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2013,
+    "constructor": "Toro Rosso",
+    "points": 21.0
+  },
+  {
+    "year": 2013,
+    "constructor": "Force India",
+    "points": 105.0
+  },
+  {
+    "year": 2013,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2013,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2014,
+    "constructor": "Ferrari",
+    "points": 298.0
+  },
+  {
+    "year": 2014,
+    "constructor": "Red Bull",
+    "points": 316.0
+  },
+  {
+    "year": 2014,
+    "constructor": "Mercedes",
+    "points": 685.0
+  },
+  {
+    "year": 2014,
+    "constructor": "McLaren",
+    "points": 113.0
+  },
+  {
+    "year": 2014,
+    "constructor": "Williams",
+    "points": 339.0
+  },
+  {
+    "year": 2014,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2014,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2014,
+    "constructor": "Sauber",
+    "points": 21.0
+  },
+  {
+    "year": 2014,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2014,
+    "constructor": "Toro Rosso",
+    "points": 33.0
+  },
+  {
+    "year": 2014,
+    "constructor": "Force India",
+    "points": 89.0
+  },
+  {
+    "year": 2014,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2014,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2015,
+    "constructor": "Ferrari",
+    "points": 369.0
+  },
+  {
+    "year": 2015,
+    "constructor": "Red Bull",
+    "points": 245.0
+  },
+  {
+    "year": 2015,
+    "constructor": "Mercedes",
+    "points": 606.0
+  },
+  {
+    "year": 2015,
+    "constructor": "McLaren",
+    "points": 47.0
+  },
+  {
+    "year": 2015,
+    "constructor": "Williams",
+    "points": 219.0
+  },
+  {
+    "year": 2015,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2015,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2015,
+    "constructor": "Sauber",
+    "points": 15.0
+  },
+  {
+    "year": 2015,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2015,
+    "constructor": "Toro Rosso",
+    "points": 82.0
+  },
+  {
+    "year": 2015,
+    "constructor": "Force India",
+    "points": 152.0
+  },
+  {
+    "year": 2015,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2015,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2016,
+    "constructor": "Ferrari",
+    "points": 430.0
+  },
+  {
+    "year": 2016,
+    "constructor": "Red Bull",
+    "points": 428.0
+  },
+  {
+    "year": 2016,
+    "constructor": "Mercedes",
+    "points": 738.0
+  },
+  {
+    "year": 2016,
+    "constructor": "McLaren",
+    "points": 52.0
+  },
+  {
+    "year": 2016,
+    "constructor": "Williams",
+    "points": 90.0
+  },
+  {
+    "year": 2016,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2016,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2016,
+    "constructor": "Sauber",
+    "points": 6.0
+  },
+  {
+    "year": 2016,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2016,
+    "constructor": "Toro Rosso",
+    "points": 54.0
+  },
+  {
+    "year": 2016,
+    "constructor": "Force India",
+    "points": 189.0
+  },
+  {
+    "year": 2016,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2016,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2017,
+    "constructor": "Ferrari",
+    "points": 483.0
+  },
+  {
+    "year": 2017,
+    "constructor": "Red Bull",
+    "points": 351.0
+  },
+  {
+    "year": 2017,
+    "constructor": "Mercedes",
+    "points": 617.0
+  },
+  {
+    "year": 2017,
+    "constructor": "McLaren",
+    "points": 66.0
+  },
+  {
+    "year": 2017,
+    "constructor": "Williams",
+    "points": 69.0
+  },
+  {
+    "year": 2017,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2017,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2017,
+    "constructor": "Sauber",
+    "points": 11.0
+  },
+  {
+    "year": 2017,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2017,
+    "constructor": "Toro Rosso",
+    "points": 45.0
+  },
+  {
+    "year": 2017,
+    "constructor": "Force India",
+    "points": 150.0
+  },
+  {
+    "year": 2017,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2017,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2018,
+    "constructor": "Ferrari",
+    "points": 530.0
+  },
+  {
+    "year": 2018,
+    "constructor": "Red Bull",
+    "points": 416.0
+  },
+  {
+    "year": 2018,
+    "constructor": "Mercedes",
+    "points": 675.0
+  },
+  {
+    "year": 2018,
+    "constructor": "McLaren",
+    "points": 34.0
+  },
+  {
+    "year": 2018,
+    "constructor": "Williams",
+    "points": 3.0
+  },
+  {
+    "year": 2018,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2018,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2018,
+    "constructor": "Sauber",
+    "points": 38.0
+  },
+  {
+    "year": 2018,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2018,
+    "constructor": "Toro Rosso",
+    "points": 24.0
+  },
+  {
+    "year": 2018,
+    "constructor": "Force India",
+    "points": 95.0
+  },
+  {
+    "year": 2018,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2018,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2019,
+    "constructor": "Ferrari",
+    "points": 450.0
+  },
+  {
+    "year": 2019,
+    "constructor": "Red Bull",
+    "points": 392.0
+  },
+  {
+    "year": 2019,
+    "constructor": "Mercedes",
+    "points": 689.0
+  },
+  {
+    "year": 2019,
+    "constructor": "McLaren",
+    "points": 176.0
+  },
+  {
+    "year": 2019,
+    "constructor": "Williams",
+    "points": 1.0
+  },
+  {
+    "year": 2019,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2019,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2019,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 2019,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2019,
+    "constructor": "Toro Rosso",
+    "points": 81.0
+  },
+  {
+    "year": 2019,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2019,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2019,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2020,
+    "constructor": "Ferrari",
+    "points": 122.0
+  },
+  {
+    "year": 2020,
+    "constructor": "Red Bull",
+    "points": 323.0
+  },
+  {
+    "year": 2020,
+    "constructor": "Mercedes",
+    "points": 518.0
+  },
+  {
+    "year": 2020,
+    "constructor": "McLaren",
+    "points": 165.0
+  },
+  {
+    "year": 2020,
+    "constructor": "Williams",
+    "points": 0.0
+  },
+  {
+    "year": 2020,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2020,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2020,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 2020,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2020,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 2020,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2020,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2020,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2021,
+    "constructor": "Ferrari",
+    "points": 313.5
+  },
+  {
+    "year": 2021,
+    "constructor": "Red Bull",
+    "points": 554.5
+  },
+  {
+    "year": 2021,
+    "constructor": "Mercedes",
+    "points": 588.5
+  },
+  {
+    "year": 2021,
+    "constructor": "McLaren",
+    "points": 273.0
+  },
+  {
+    "year": 2021,
+    "constructor": "Williams",
+    "points": 23.0
+  },
+  {
+    "year": 2021,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2021,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2021,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 2021,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2021,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 2021,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2021,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2021,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2022,
+    "constructor": "Ferrari",
+    "points": 524.0
+  },
+  {
+    "year": 2022,
+    "constructor": "Red Bull",
+    "points": 719.0
+  },
+  {
+    "year": 2022,
+    "constructor": "Mercedes",
+    "points": 505.0
+  },
+  {
+    "year": 2022,
+    "constructor": "McLaren",
+    "points": 148.0
+  },
+  {
+    "year": 2022,
+    "constructor": "Williams",
+    "points": 8.0
+  },
+  {
+    "year": 2022,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2022,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2022,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 2022,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2022,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 2022,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2022,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2022,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2023,
+    "constructor": "Ferrari",
+    "points": 392.0
+  },
+  {
+    "year": 2023,
+    "constructor": "Red Bull",
+    "points": 822.0
+  },
+  {
+    "year": 2023,
+    "constructor": "Mercedes",
+    "points": 392.0
+  },
+  {
+    "year": 2023,
+    "constructor": "McLaren",
+    "points": 293.0
+  },
+  {
+    "year": 2023,
+    "constructor": "Williams",
+    "points": 28.0
+  },
+  {
+    "year": 2023,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2023,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2023,
+    "constructor": "Sauber",
+    "points": 0
+  },
+  {
+    "year": 2023,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2023,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 2023,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2023,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2023,
+    "constructor": "Maserati",
+    "points": 0
+  },
+  {
+    "year": 2024,
+    "constructor": "Ferrari",
+    "points": 696.0
+  },
+  {
+    "year": 2024,
+    "constructor": "Red Bull",
+    "points": 667.0
+  },
+  {
+    "year": 2024,
+    "constructor": "Mercedes",
+    "points": 495.0
+  },
+  {
+    "year": 2024,
+    "constructor": "McLaren",
+    "points": 686.0
+  },
+  {
+    "year": 2024,
+    "constructor": "Williams",
+    "points": 17.0
+  },
+  {
+    "year": 2024,
+    "constructor": "Renault",
+    "points": 0
+  },
+  {
+    "year": 2024,
+    "constructor": "Alfa Romeo",
+    "points": 0
+  },
+  {
+    "year": 2024,
+    "constructor": "Sauber",
+    "points": 4.0
+  },
+  {
+    "year": 2024,
+    "constructor": "Lotus F1",
+    "points": 0
+  },
+  {
+    "year": 2024,
+    "constructor": "Toro Rosso",
+    "points": 0
+  },
+  {
+    "year": 2024,
+    "constructor": "Force India",
+    "points": 0
+  },
+  {
+    "year": 2024,
+    "constructor": "March",
+    "points": 0
+  },
+  {
+    "year": 2024,
+    "constructor": "Maserati",
+    "points": 0
+  }
+]

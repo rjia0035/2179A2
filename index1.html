@@ -410,7 +410,18 @@
         <div class="chart-wrap" id="chart9" style="display:flex; justify-content:center;"></div>
     </div>
 
-    <!-- 10. Conclusion -->
+    <!-- 10. Constructor Points Streamgraph -->
+    <div class="card full-card">
+        <p class="section-label">🏢 The Shifting Sands of Constructors’ Points</p>
+        <div class="story-text" style="margin-bottom: 0.75rem; font-size: 13px;">
+            A flowing streamgraph – each colour represents a team, the width shows points scored per season.
+            The ebb and flow reveals decades of Ferrari dominance, the McLaren‑Williams battles, the Mercedes‑Red Bull
+            era, and the recent resurgence of McLaren and Ferrari.
+        </div>
+        <div class="chart-wrap" id="chart10"></div>
+    </div>
+
+    <!-- 11. Conclusion -->
     <div class="story-text" style="text-align: center; margin-top: 1rem;">
         From Fangio to Verstappen, F1 continues to evolve – faster, smarter, and more global than ever.
     </div>
@@ -1654,7 +1665,7 @@
 
             // Centre label
             const centreText = `
-                <text x="${cx}" y="${cy - 12}" text-anchor="middle" font-size="22" font-weight="700" fill="#1a1a18" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">${byLap.reduce((s,d)=>s+d.stops,0).toLocaleString()}</text>
+                <text x="${cx}" y="${cy - 12}" text-anchor="middle" font-size="22" font-weight="700" fill="#1a1a18" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">${byLap.reduce((s, d) => s + d.stops, 0).toLocaleString()}</text>
                 <text x="${cx}" y="${cy + 8}" text-anchor="middle" font-size="11" fill="#73726c" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">total pit stops</text>
                 <text x="${cx}" y="${cy + 23}" text-anchor="middle" font-size="10" fill="#b4b2a9" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">285 races</text>`;
 
@@ -1670,7 +1681,7 @@
                 tooltipZones += `<path d="${arcPath(startAngle, endAngle, innerR, outerMaxR + 14)}" 
                     fill="transparent" stroke="none" cursor="pointer"
                     class="pit-arc"
-                    data-label="${d.lap_label}" data-stops="${d.stops}" data-pct="${((d.stops/byLap.reduce((s,x)=>s+x.stops,0))*100).toFixed(1)}"/>`;
+                    data-label="${d.lap_label}" data-stops="${d.stops}" data-pct="${((d.stops / byLap.reduce((s, x) => s + x.stops, 0)) * 100).toFixed(1)}"/>`;
             });
 
             const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
@@ -1695,7 +1706,7 @@
                 el.addEventListener('mousemove', e => {
                     tip.style.display = 'block';
                     tip.style.left = (e.clientX + 12) + 'px';
-                    tip.style.top  = (e.clientY - 30) + 'px';
+                    tip.style.top = (e.clientY - 30) + 'px';
                     tip.innerHTML = `<strong>${el.dataset.label}</strong><br>${el.dataset.stops} pit stops (${el.dataset.pct}%)`;
                 });
                 el.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
@@ -1705,6 +1716,167 @@
         })
         .catch(err => console.error('Chart9 error:', err));
 
+    // ============================================
+    // CHART 10: Streamgraph – Constructor Points (Vega, fully manual)
+    // ============================================
+    fetch('jsons/constructor_points.json')
+        .then(r => r.json())
+        .then(data => {
+            const years = [];
+            for (let y = 1950; y <= 2024; y++) years.push(y);
+            
+            // Identify top teams (total points > 10)
+            const totals = {};
+            data.forEach(d => { totals[d.constructor] = (totals[d.constructor] || 0) + d.points; });
+            const topTeams = Object.entries(totals)
+                .filter(([, pts]) => pts > 10)
+                .map(([team]) => team);
+            
+            // Build points grid
+            const pointsMap = {};
+            topTeams.forEach(team => { pointsMap[team] = {}; });
+            data.forEach(d => {
+                if (topTeams.includes(d.constructor)) {
+                    pointsMap[d.constructor][d.year] = d.points;
+                }
+            });
+            
+            // Fill zeros for missing years
+            topTeams.forEach(team => {
+                years.forEach(y => {
+                    if (pointsMap[team][y] === undefined) pointsMap[team][y] = 0;
+                });
+            });
+            
+            // Order teams by total points (descending) for consistent stacking
+            const teamOrder = topTeams.slice().sort((a,b) => totals[b] - totals[a]);
+            
+            // Compute stacked bounds per year (centered)
+            const stackedData = [];
+            let globalMin = Infinity, globalMax = -Infinity;
+            years.forEach(year => {
+                const values = teamOrder.map(team => pointsMap[team][year]);
+                const total = values.reduce((s,v) => s + v, 0);
+                let lower = -total / 2;
+                for (let i = 0; i < teamOrder.length; i++) {
+                    const team = teamOrder[i];
+                    const val = values[i];
+                    const upper = lower + val;
+                    stackedData.push({
+                        year: year,
+                        constructor: team,
+                        points: val,
+                        lower: lower,
+                        upper: upper,
+                        // for tooltip
+                        middle: (lower + upper) / 2
+                    });
+                    if (lower < globalMin) globalMin = lower;
+                    if (upper > globalMax) globalMax = upper;
+                    lower = upper;
+                }
+            });
+            
+            // Vega spec with explicit scale domains
+            const vegaSpec = {
+                "$schema": "https://vega.github.io/schema/vega/v5.json",
+                "width": "container",
+                "height": 380,
+                "padding": 5,
+                "background": "white",
+                "title": {
+                    "text": "Points scored by constructor, 1950–2024",
+                    "subtitle": "Streamgraph – width shows seasonal points",
+                    "fontSize": 13,
+                    "subtitleFontSize": 10,
+                    "anchor": "start",
+                    "dy": -4
+                },
+                "data": [
+                    {
+                        "name": "source",
+                        "values": stackedData
+                    }
+                ],
+                "scales": [
+                    {
+                        "name": "x",
+                        "type": "linear",
+                        "domain": [1950, 2024],
+                        "range": "width",
+                        "nice": true
+                    },
+                    {
+                        "name": "y",
+                        "type": "linear",
+                        "domain": [globalMin, globalMax],
+                        "range": "height",
+                        "zero": false
+                    },
+                    {
+                        "name": "color",
+                        "type": "ordinal",
+                        "domain": teamOrder,
+                        "range": { "scheme": "tableau10" }
+                    }
+                ],
+                "axes": [
+                    { "orient": "bottom", "scale": "x", "format": "d", "title": "Year", "grid": true, "tickCount": 15 }
+                ],
+                "marks": [
+                    {
+                        "type": "group",
+                        "from": {
+                            "facet": {
+                                "data": "source",
+                                "groupby": ["constructor"],
+                                "name": "facet"
+                            }
+                        },
+                        "marks": [
+                            {
+                                "type": "area",
+                                "from": { "data": "facet" },
+                                "encode": {
+                                    "enter": {
+                                        "x": { "scale": "x", "field": "year" },
+                                        "y": { "scale": "y", "field": "lower" },
+                                        "y2": { "scale": "y", "field": "upper" },
+                                        "fill": { "scale": "color", "field": "constructor" },
+                                        "fillOpacity": { "value": 0.75 },
+                                        "interpolate": { "value": "monotone" },
+                                        "stroke": { "value": null },
+                                        "tooltip": {
+                                            "signal": "{ 'Team': datum.constructor, 'Year': datum.year, 'Points': format(datum.points, ',.1f') }"
+                                        }
+                                    },
+                                    "hover": { "fillOpacity": { "value": 0.95 } }
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "legends": [
+                    {
+                        "fill": "color",
+                        "title": "Constructor",
+                        "orient": "bottom",
+                        "titleFontSize": 10,
+                        "labelFontSize": 9,
+                        "columns": Math.min(5, teamOrder.length)
+                    }
+                ],
+                "config": {
+                    "axis": { "gridColor": "#e8e6e0", "domain": false, "ticks": false },
+                    "view": { "stroke": null }
+                }
+            };
+            
+            vegaEmbed("#chart10", vegaSpec, { actions: false })
+                .then(() => console.log("✅ Streamgraph (Vega) loaded successfully"))
+                .catch(err => console.error("Vega streamgraph error:", err));
+        })
+        .catch(error => console.error("Error loading constructor_points.json:", error));
 </script>
 </body>
 
